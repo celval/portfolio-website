@@ -1,0 +1,76 @@
+---
+import { getImage } from 'astro:assets';
+import ProjectCarousel from './ProjectCarousel.tsx';
+import { type Project, tagColors } from '../data/projects';
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+
+// Import all project images for optimization
+const allImages = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/assets/images/projects/*.jpg',
+  { eager: true }
+);
+
+// Get optimized URLs for this project's images
+const optimizedImages = await Promise.all(
+  project.images.map(async (src) => {
+    const assetPath = src.replace('/images/projects/', '/src/assets/images/projects/');
+    const imageModule = allImages[assetPath];
+    if (!imageModule) return src;
+
+    const optimized = await getImage({
+      src: imageModule.default,
+      width: 700,
+      format: 'webp',
+      quality: 80,
+    });
+    return optimized.src;
+  })
+);
+---
+
+<article class="pb-[100px] last:pb-0">
+  <!-- Header row -->
+  <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-8">
+    <div>
+      <h3 class="font-geist text-[22px] md:text-[26px] leading-[1.2] mb-3 md:max-w-[600px] tracking-[-0.25px]">
+        {project.title} — {project.description}
+      </h3>
+      <div class="flex flex-wrap gap-1">
+        {project.tags.map((tag) => (
+          <span
+            class="px-2 py-1 text-xs rounded-sm text-black"
+            style={`background-color: ${tagColors[tag] || '#e0e0e0'}`}
+          >
+            {tag}
+          </span>
+        ))}
+      </div>
+    </div>
+    <a
+      href={`/projects/${project.slug}`}
+      class="hidden md:inline-block shrink-0 px-5 py-2.5 text-base border border-black rounded-full hover:bg-black hover:text-white transition-colors whitespace-nowrap self-start"
+    >
+      See case study
+    </a>
+  </div>
+
+  <!-- Image carousel -->
+  <ProjectCarousel
+    client:visible
+    images={optimizedImages}
+    title={project.title}
+  />
+
+  <!-- See case study button (mobile only) -->
+  <a
+    href={`/projects/${project.slug}`}
+    class="inline-block md:hidden mt-8 px-5 py-2.5 text-base max-[440px]:px-3.5 max-[440px]:py-1.5 max-[440px]:text-sm border border-black rounded-full hover:bg-black hover:text-white transition-colors whitespace-nowrap"
+  >
+    See case study
+  </a>
+</article>

@@ -1,0 +1,65 @@
+---
+import { getImage } from 'astro:assets';
+import img1 from '../assets/images/projects/ennismore-1.jpg';
+import img2 from '../assets/images/projects/delli-1.jpg';
+import img3 from '../assets/images/projects/different-kind-1.jpg';
+import img4 from '../assets/images/projects/villa-soulia-1.jpg';
+import img5 from '../assets/images/projects/allergan-1.jpg';
+import img6 from '../assets/images/projects/ennismore-2.jpg';
+
+const images = await Promise.all([
+  getImage({ src: img1, width: 300, format: 'webp', quality: 80 }),
+  getImage({ src: img2, width: 300, format: 'webp', quality: 80 }),
+  getImage({ src: img3, width: 300, format: 'webp', quality: 80 }),
+  getImage({ src: img4, width: 300, format: 'webp', quality: 80 }),
+  getImage({ src: img5, width: 300, format: 'webp', quality: 80 }),
+  getImage({ src: img6, width: 300, format: 'webp', quality: 80 }),
+]);
+---
+
+<!-- Option 3: Vertical Marquee Columns -->
+<section class="px-4 md:px-8 pt-16 md:pt-24 pb-20 md:pb-32 relative overflow-hidden bg-[#DCE3F9] md:min-h-[420px]">
+  <div class="max-w-[586px] relative z-10">
+    <h1 class="font-editorial text-[28px] md:text-[38px] leading-[1.2] text-text">
+      Bonjour I'm Célia — Freelance Senior Product and Visual Designer working with startups, design studios and e-commerce brands.
+    </h1>
+  </div>
+
+  <div class="hidden md:flex absolute right-[60px] top-0 bottom-0 w-[380px] gap-3 overflow-hidden" aria-hidden="true">
+    <!-- Column 1 - scrolls up -->
+    <div class="flex flex-col gap-3 w-1/2 hero-marquee-up">
+      <img src={images[0].src} alt="" class="w-full h-[200px] object-cover rounded-xl" />
+      <img src={images[1].src} alt="" class="w-full h-[160px] object-cover rounded-xl" />
+      <img src={images[2].src} alt="" class="w-full h-[200px] object-cover rounded-xl" />
+      <img src={images[0].src} alt="" class="w-full h-[200px] object-cover rounded-xl" />
+      <img src={images[1].src} alt="" class="w-full h-[160px] object-cover rounded-xl" />
+      <img src={images[2].src} alt="" class="w-full h-[200px] object-cover rounded-xl" />
+    </div>
+    <!-- Column 2 - scrolls down -->
+    <div class="flex flex-col gap-3 w-1/2 hero-marquee-down">
+      <img src={images[3].src} alt="" class="w-full h-[160px] object-cover rounded-xl" />
+      <img src={images[4].src} alt="" class="w-full h-[200px] object-cover rounded-xl" />
+      <img src={images[5].src} alt="" class="w-full h-[160px] object-cover rounded-xl" />
+      <img src={images[3].src} alt="" class="w-full h-[160px] object-cover rounded-xl" />
+      <img src={images[4].src} alt="" class="w-full h-[200px] object-cover rounded-xl" />
+      <img src={images[5].src} alt="" class="w-full h-[160px] object-cover rounded-xl" />
+    </div>
+  </div>
+</section>
+
+<style>
+  @keyframes marquee-up {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-50%); }
+  }
+  @keyframes marquee-down {
+    0% { transform: translateY(-50%); }
+    100% { transform: translateY(0); }
+  }
+  .hero-marquee-up {
+    animation: marquee-up 20s linear infinite;
+  }
+  .hero-marquee-down {
+    animation: marquee-down 20s linear infinite;
+  }
+</style>

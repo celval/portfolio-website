@@ -1,0 +1,41 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__mcp-registry__search_mcp_registry",
+      "mcp__plugin_figma_figma__get_screenshot",
+      "mcp__plugin_figma_figma__get_metadata",
+      "WebSearch",
+      "WebFetch(domain:www.visionfly.ai)",
+      "WebFetch(domain:www.codebrand.us)",
+      "WebFetch(domain:enstacked.com)",
+      "WebFetch(domain:eastondev.com)",
+      "mcp__plugin_figma_figma__get_design_context",
+      "Bash(npm create:*)",
+      "Bash(export PATH=\"/opt/homebrew/bin:$PATH\")",
+      "Bash(npm --version)",
+      "Read(//opt/homebrew/bin/**)",
+      "Read(//Users/celiavalette/.nvm/versions/**)",
+      "Read(//Users/celiavalette/.volta/bin/**)",
+      "Bash(mdfind \"kMDItemFSName == 'node' && kMDItemContentType == 'public.unix-executable'\")",
+      "Bash(command -v node)",
+      "Bash(command -v npx)",
+      "Read(//opt/homebrew/opt/**)",
+      "Read(//Users/celiavalette/.local/share/**)",
+      "Bash(brew --version)",
+      "Bash(brew list:*)",
+      "Bash(brew install:*)",
+      "Bash(/usr/bin/head -c 8000)",
+      "Bash(npx create-astro@latest:*)",
+      "Bash(npx astro:*)",
+      "Bash(python3 -c ':*)",
+      "WebFetch(domain:github.com)",
+      "Bash(claude mcp:*)",
+      "mcp__figma-mcp-go__get_fonts",
+      "mcp__figma-mcp-go__scan_text_nodes",
+      "mcp__figma-mcp-go__get_design_context",
+      "mcp__figma-mcp-go__get_node",
+      "Bash(npm install:*)",
+      "mcp__figma-mcp-go__save_screenshots"
+    ]
+  }
+}

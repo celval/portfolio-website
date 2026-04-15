@@ -1,0 +1,30 @@
+---
+import HeroOption1 from '../components/HeroOption1.astro';
+import HeroOption2 from '../components/HeroOption2.astro';
+import HeroOption3 from '../components/HeroOption3.astro';
+import '../styles/global.css';
+---
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hero Options</title>
+</head>
+<body>
+  <div class="px-8 py-8 bg-black text-white text-center">
+    <h2 class="text-2xl font-bold">Option 1 — Stacked Cards with Rotation</h2>
+  </div>
+  <HeroOption1 />
+
+  <div class="px-8 py-8 bg-black text-white text-center">
+    <h2 class="text-2xl font-bold">Option 2 — Floating Grid</h2>
+  </div>
+  <HeroOption2 />
+
+  <div class="px-8 py-8 bg-black text-white text-center">
+    <h2 class="text-2xl font-bold">Option 3 — Vertical Marquee</h2>
+  </div>
+  <HeroOption3 />
+</body>
+</html>

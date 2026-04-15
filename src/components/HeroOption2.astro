@@ -1,0 +1,28 @@
+---
+import { getImage } from 'astro:assets';
+import img1 from '../assets/images/projects/ennismore-1.jpg';
+import img2 from '../assets/images/projects/delli-1.jpg';
+import img3 from '../assets/images/projects/different-kind-1.jpg';
+import img4 from '../assets/images/projects/villa-soulia-1.jpg';
+
+const opt1 = await getImage({ src: img1, width: 400, format: 'webp', quality: 80 });
+const opt2 = await getImage({ src: img2, width: 300, format: 'webp', quality: 80 });
+const opt3 = await getImage({ src: img3, width: 250, format: 'webp', quality: 80 });
+const opt4 = await getImage({ src: img4, width: 250, format: 'webp', quality: 80 });
+---
+
+<!-- Option 2: Floating Grid -->
+<section class="px-4 md:px-8 pt-16 md:pt-24 pb-20 md:pb-32 relative overflow-hidden bg-[#DCE3F9] md:min-h-[420px]">
+  <div class="max-w-[586px]">
+    <h1 class="font-editorial text-[28px] md:text-[38px] leading-[1.2] text-text">
+      Bonjour I'm Célia — Freelance Senior Product and Visual Designer working with startups, design studios and e-commerce brands.
+    </h1>
+  </div>
+
+  <div class="hidden md:block absolute right-[60px] top-[50%] -translate-y-1/2 w-[480px] h-[380px]" aria-hidden="true">
+    <img src={opt1.src} alt="" class="absolute w-[260px] h-[180px] object-cover rounded-xl shadow-md" style="top: 0; left: 0;" />
+    <img src={opt2.src} alt="" class="absolute w-[180px] h-[140px] object-cover rounded-xl shadow-md" style="top: 20px; left: 280px;" />
+    <img src={opt3.src} alt="" class="absolute w-[200px] h-[150px] object-cover rounded-xl shadow-md" style="top: 200px; left: 40px;" />
+    <img src={opt4.src} alt="" class="absolute w-[200px] h-[160px] object-cover rounded-xl shadow-md" style="top: 190px; left: 260px;" />
+  </div>
+</section>
