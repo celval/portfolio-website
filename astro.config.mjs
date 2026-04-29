@@ -6,6 +6,8 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://celval.github.io',
+  base: '/portfolio-website',
   integrations: [react()],
 
   vite: {

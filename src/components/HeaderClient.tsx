@@ -27,7 +27,7 @@ export default function HeaderClient() {
     return (
       <>
         <a
-          href="/"
+          href={import.meta.env.BASE_URL}
           className={`font-geist font-medium text-[20px] md:text-[25px] tracking-tight ${textColor}`}
         >
           Célia Valette
