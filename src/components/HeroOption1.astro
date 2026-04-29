@@ -1,25 +1,30 @@
 ---
-import { getImage } from 'astro:assets';
-import img1 from '../assets/images/projects/ennismore-1.jpg';
-import img2 from '../assets/images/projects/delli-1.jpg';
-import img3 from '../assets/images/projects/different-kind-1.jpg';
-
-const opt1 = await getImage({ src: img1, width: 400, format: 'webp', quality: 80 });
-const opt2 = await getImage({ src: img2, width: 350, format: 'webp', quality: 80 });
-const opt3 = await getImage({ src: img3, width: 300, format: 'webp', quality: 80 });
+const clients = ["Ennismore", "Wimbledon", "Bttr", "Delli", "Different Kind", "Allergan", "Villa Soulia"];
 ---
 
-<!-- Option 1: Stacked Cards with Rotation -->
-<section class="px-4 md:px-8 pt-16 md:pt-24 pb-20 md:pb-32 relative overflow-hidden bg-[#DCE3F9] md:min-h-[420px]">
-  <div class="max-w-[586px]">
-    <h1 class="font-editorial text-[28px] md:text-[38px] leading-[1.2] text-text">
-      Bonjour I'm Célia — Freelance Senior Product and Visual Designer working with startups, design studios and e-commerce brands.
+<section class="px-4 md:px-8 pt-12 md:pt-16 pb-0 overflow-hidden">
+  <div class="max-w-[900px]">
+    <h1 class="font-editorial text-[48px] md:text-[96px] leading-[0.95] tracking-[-0.02em] mb-6">
+      Bonjour,<br/>I'm Célia.
     </h1>
+    <p class="font-editorial text-[20px] md:text-[26px] leading-[1.3] max-w-[560px] text-text">
+      Freelance Senior Product and Visual Designer working with startups, design studios and e-commerce brands.
+    </p>
   </div>
 
-  <div class="hidden md:block absolute right-[80px] top-[50%] -translate-y-1/2 w-[420px] h-[320px]" aria-hidden="true">
-    <img src={opt3.src} alt="" class="absolute w-[280px] h-[200px] object-cover rounded-xl shadow-lg" style="top: 20px; left: 0; transform: rotate(-6deg);" />
-    <img src={opt2.src} alt="" class="absolute w-[280px] h-[200px] object-cover rounded-xl shadow-lg" style="top: 40px; left: 60px; transform: rotate(3deg);" />
-    <img src={opt1.src} alt="" class="absolute w-[300px] h-[210px] object-cover rounded-xl shadow-xl" style="top: 50px; left: 100px; transform: rotate(-1deg);" />
+  <!-- Marquee -->
+  <div class="mt-16 md:mt-24 -mx-4 md:-mx-8 border-y border-black/10 py-6 overflow-hidden">
+    <div class="flex gap-12 whitespace-nowrap animate-[marquee_30s_linear_infinite]">
+      {[...clients, ...clients, ...clients].map((c) => (
+        <span class="font-editorial text-[28px] md:text-[36px] text-text/80">{c} <span class="text-text/30 mx-4">●</span></span>
+      ))}
+    </div>
   </div>
 </section>
+
+<style>
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-33.333%); }
+  }
+</style>

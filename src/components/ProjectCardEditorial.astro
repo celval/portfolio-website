@@ -1,0 +1,50 @@
+---
+import { getImage } from 'astro:assets';
+import { type Project, tagColors } from '../data/projects';
+
+interface Props { project: Project; }
+const { project } = Astro.props;
+
+const allImages = import.meta.glob<{ default: ImageMetadata }>('/src/assets/images/projects/*.jpg', { eager: true });
+const optimized = await Promise.all(project.images.map(async (src) => {
+  const m = allImages[src.replace('/images/projects/', '/src/assets/images/projects/')];
+  if (!m) return src;
+  return (await getImage({ src: m.default, width: 1400, format: 'webp', quality: 85 })).src;
+}));
+
+const hero = optimized[0];
+const rest = optimized.slice(1);
+---
+
+<article class="pb-[120px] last:pb-0">
+  <!-- Full-width hero image -->
+  <div class="aspect-[16/9] md:aspect-[16/7] rounded-lg overflow-hidden bg-gray-100 mb-8">
+    <img src={hero} alt={`${project.title}`} class="w-full h-full object-cover" loading="eager" />
+  </div>
+
+  <!-- Title meta row -->
+  <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-8">
+    <div>
+      <h3 class="font-geist text-[22px] md:text-[26px] leading-[1.2] mb-3 md:max-w-[600px] tracking-[-0.25px]">
+        {project.title} — {project.description}
+      </h3>
+      <div class="flex flex-wrap gap-1">
+        {project.tags.map((tag) => (
+          <span class="px-2 py-1 text-xs rounded-sm text-black" style={`background-color: ${tagColors[tag] || '#e0e0e0'}`}>{tag}</span>
+        ))}
+      </div>
+    </div>
+    <button type="button" disabled class="shrink-0 px-5 py-2.5 text-base border border-black/20 text-black/40 rounded-full whitespace-nowrap cursor-not-allowed">
+      Case study coming soon
+    </button>
+  </div>
+
+  <!-- Alternating two-col image rows -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
+    {rest.map((src, i) => (
+      <div class={`aspect-[4/5] rounded-lg overflow-hidden bg-gray-100 ${i % 3 === 0 ? 'md:col-span-2 md:aspect-[16/9]' : ''}`}>
+        <img src={src} alt="" class="w-full h-full object-cover" loading="lazy" />
+      </div>
+    ))}
+  </div>
+</article>

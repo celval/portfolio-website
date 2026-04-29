@@ -45,6 +45,11 @@ html {
   scroll-behavior: smooth;
 }
 
+button,
+a {
+  cursor: pointer;
+}
+
 body {
   font-family: var(--font-geist);
   color: var(--color-text);

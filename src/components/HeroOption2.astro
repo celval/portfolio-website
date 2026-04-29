@@ -1,28 +1,30 @@
 ---
 import { getImage } from 'astro:assets';
-import img1 from '../assets/images/projects/ennismore-1.jpg';
-import img2 from '../assets/images/projects/delli-1.jpg';
-import img3 from '../assets/images/projects/different-kind-1.jpg';
-import img4 from '../assets/images/projects/villa-soulia-1.jpg';
-
-const opt1 = await getImage({ src: img1, width: 400, format: 'webp', quality: 80 });
-const opt2 = await getImage({ src: img2, width: 300, format: 'webp', quality: 80 });
-const opt3 = await getImage({ src: img3, width: 250, format: 'webp', quality: 80 });
-const opt4 = await getImage({ src: img4, width: 250, format: 'webp', quality: 80 });
+const allImages = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/assets/images/projects/*.jpg',
+  { eager: true }
+);
+const featured = allImages['/src/assets/images/projects/villa-soulia-1.jpg'];
+const optimized = featured ? await getImage({ src: featured.default, height: 800, format: 'webp', quality: 90 }) : null;
 ---
 
-<!-- Option 2: Floating Grid -->
-<section class="px-4 md:px-8 pt-16 md:pt-24 pb-20 md:pb-32 relative overflow-hidden bg-[#DCE3F9] md:min-h-[420px]">
-  <div class="max-w-[586px]">
-    <h1 class="font-editorial text-[28px] md:text-[38px] leading-[1.2] text-text">
-      Bonjour I'm Célia — Freelance Senior Product and Visual Designer working with startups, design studios and e-commerce brands.
-    </h1>
-  </div>
-
-  <div class="hidden md:block absolute right-[60px] top-[50%] -translate-y-1/2 w-[480px] h-[380px]" aria-hidden="true">
-    <img src={opt1.src} alt="" class="absolute w-[260px] h-[180px] object-cover rounded-xl shadow-md" style="top: 0; left: 0;" />
-    <img src={opt2.src} alt="" class="absolute w-[180px] h-[140px] object-cover rounded-xl shadow-md" style="top: 20px; left: 280px;" />
-    <img src={opt3.src} alt="" class="absolute w-[200px] h-[150px] object-cover rounded-xl shadow-md" style="top: 200px; left: 40px;" />
-    <img src={opt4.src} alt="" class="absolute w-[200px] h-[160px] object-cover rounded-xl shadow-md" style="top: 190px; left: 260px;" />
+<section class="px-4 md:px-8 pt-12 md:pt-20 pb-12 md:pb-20">
+  <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
+    <div class="md:col-span-6">
+      <p class="font-geist text-sm uppercase tracking-[0.15em] text-text-light mb-6">Available for projects · 2026</p>
+      <h1 class="font-editorial text-[36px] md:text-[56px] leading-[1.05] tracking-[-0.01em] mb-6">
+        Bonjour I'm Célia — Freelance Senior Product and Visual Designer.
+      </h1>
+      <p class="font-geist text-[16px] md:text-[18px] leading-[1.5] text-text-light max-w-[480px]">
+        Working with startups, design studios and e-commerce brands across product, brand and UI.
+      </p>
+    </div>
+    <div class="md:col-span-6">
+      {optimized && (
+        <div class="rounded-2xl overflow-hidden bg-gray-100 aspect-[4/5]">
+          <img src={optimized.src} alt="Featured project" class="w-full h-full object-cover" />
+        </div>
+      )}
+    </div>
   </div>
 </section>

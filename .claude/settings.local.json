@@ -35,7 +35,11 @@
       "mcp__figma-mcp-go__get_design_context",
       "mcp__figma-mcp-go__get_node",
       "Bash(npm install:*)",
-      "mcp__figma-mcp-go__save_screenshots"
+      "mcp__figma-mcp-go__save_screenshots",
+      "mcp__Claude_Preview__preview_start",
+      "mcp__figma-mcp-go__get_metadata",
+      "mcp__figma-mcp-go__get_pages",
+      "mcp__figma-mcp-go__get_selection"
     ]
   }
 }

@@ -1,30 +1,45 @@
 ---
+import Layout from '../layouts/Layout.astro';
+import HeaderClient from '../components/HeaderClient';
 import HeroOption1 from '../components/HeroOption1.astro';
 import HeroOption2 from '../components/HeroOption2.astro';
 import HeroOption3 from '../components/HeroOption3.astro';
-import '../styles/global.css';
+import HeroOption4 from '../components/HeroOption4.astro';
+import HeroOption5 from '../components/HeroOption5.astro';
+import HeroOption6 from '../components/HeroOption6.astro';
 ---
 
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hero Options</title>
-</head>
-<body>
-  <div class="px-8 py-8 bg-black text-white text-center">
-    <h2 class="text-2xl font-bold">Option 1 — Stacked Cards with Rotation</h2>
-  </div>
-  <HeroOption1 />
+<Layout title="Hero options">
+  <HeaderClient client:load />
+  <main>
+    <div class="px-4 md:px-8 py-8 border-b border-black/10">
+      <p class="font-geist text-xs uppercase tracking-[0.15em] text-text-light">Option 1 — Bold typography + client marquee</p>
+    </div>
+    <HeroOption1 />
 
-  <div class="px-8 py-8 bg-black text-white text-center">
-    <h2 class="text-2xl font-bold">Option 2 — Floating Grid</h2>
-  </div>
-  <HeroOption2 />
+    <div class="px-4 md:px-8 py-8 border-y border-black/10 mt-16">
+      <p class="font-geist text-xs uppercase tracking-[0.15em] text-text-light">Option 2 — Split layout with featured project</p>
+    </div>
+    <HeroOption2 />
 
-  <div class="px-8 py-8 bg-black text-white text-center">
-    <h2 class="text-2xl font-bold">Option 3 — Vertical Marquee</h2>
-  </div>
-  <HeroOption3 />
-</body>
-</html>
+    <div class="px-4 md:px-8 py-8 border-y border-black/10 mt-16">
+      <p class="font-geist text-xs uppercase tracking-[0.15em] text-text-light">Option 3 — Layered floating cards</p>
+    </div>
+    <HeroOption3 />
+
+    <div class="px-4 md:px-8 py-8 border-y border-black/10 mt-16">
+      <p class="font-geist text-xs uppercase tracking-[0.15em] text-text-light">Option 4 — Editorial intro + stats</p>
+    </div>
+    <HeroOption4 />
+
+    <div class="px-4 md:px-8 py-8 border-y border-black/10 mt-16">
+      <p class="font-geist text-xs uppercase tracking-[0.15em] text-text-light">Option 5 — Rotating words</p>
+    </div>
+    <HeroOption5 />
+
+    <div class="px-4 md:px-8 py-8 border-y border-black/10 mt-16">
+      <p class="font-geist text-xs uppercase tracking-[0.15em] text-text-light">Option 6 — Bold display + decorative shapes</p>
+    </div>
+    <HeroOption6 />
+  </main>
+</Layout>

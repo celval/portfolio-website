@@ -1,0 +1,57 @@
+---
+import Layout from '../layouts/Layout.astro';
+import HeaderClient from '../components/HeaderClient';
+import HeroAnim1 from '../components/HeroAnim1.astro';
+import HeroAnim2 from '../components/HeroAnim2.astro';
+import HeroAnim3 from '../components/HeroAnim3.astro';
+import HeroAnim4 from '../components/HeroAnim4.astro';
+import HeroAnim5 from '../components/HeroAnim5.astro';
+import HeroAnim6 from '../components/HeroAnim6.astro';
+---
+
+<Layout title="Hero text animations">
+  <HeaderClient client:load />
+  <main>
+    <div class="px-4 md:px-8 py-8 border-b border-black/10">
+      <p class="font-geist text-xs uppercase tracking-[0.15em] text-text-light">Option 1 — Word-by-word fade up</p>
+    </div>
+    <HeroAnim1 />
+
+    <div class="px-4 md:px-8 py-8 border-y border-black/10 mt-8">
+      <p class="font-geist text-xs uppercase tracking-[0.15em] text-text-light">Option 2 — Line slide up with mask</p>
+    </div>
+    <HeroAnim2 />
+
+    <div class="px-4 md:px-8 py-8 border-y border-black/10 mt-8">
+      <p class="font-geist text-xs uppercase tracking-[0.15em] text-text-light">Option 3 — Letter scramble / decode</p>
+    </div>
+    <HeroAnim3 />
+
+    <div class="px-4 md:px-8 py-8 border-y border-black/10 mt-8">
+      <p class="font-geist text-xs uppercase tracking-[0.15em] text-text-light">Option 4 — Word-by-word blur to focus</p>
+    </div>
+    <HeroAnim4 />
+
+    <div class="px-4 md:px-8 py-8 border-y border-black/10 mt-8">
+      <p class="font-geist text-xs uppercase tracking-[0.15em] text-text-light">Option 5 — Word-by-word color sweep</p>
+    </div>
+    <HeroAnim5 />
+
+    <div class="px-4 md:px-8 py-8 border-y border-black/10 mt-8">
+      <p class="font-geist text-xs uppercase tracking-[0.15em] text-text-light">Option 6 — Word-by-word mask reveal</p>
+    </div>
+    <HeroAnim6 />
+  </main>
+
+  <button
+    id="replay"
+    style="position: fixed; bottom: 24px; right: 24px; z-index: 50;"
+    class="px-5 py-2.5 text-base bg-black text-white border border-black rounded-full hover:bg-white hover:text-black transition-colors shadow-lg"
+  >
+    ↻ Replay animations
+  </button>
+</Layout>
+
+<script is:inline>
+  document.getElementById('replay')?.addEventListener('click', () => location.reload());
+</script>

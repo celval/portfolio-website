@@ -24,16 +24,16 @@ const optimizedImages = await Promise.all(
 
     const optimized = await getImage({
       src: imageModule.default,
-      width: 700,
+      width: 1000,
       format: 'webp',
-      quality: 80,
+      quality: 85,
     });
     return optimized.src;
   })
 );
 ---
 
-<article class="pb-[100px] last:pb-0">
+<article class="pb-[160px] last:pb-0">
   <!-- Header row -->
   <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-8">
     <div>
@@ -51,12 +51,13 @@ const optimizedImages = await Promise.all(
         ))}
       </div>
     </div>
-    <a
-      href={`/projects/${project.slug}`}
-      class="hidden md:inline-block shrink-0 px-5 py-2.5 text-base border border-black rounded-full hover:bg-black hover:text-white transition-colors whitespace-nowrap self-start"
+    <button
+      type="button"
+      disabled
+      class="shrink-0 px-5 py-2.5 text-base border border-black/20 text-black/40 rounded-full whitespace-nowrap cursor-not-allowed"
     >
-      See case study
-    </a>
+      Case study coming soon
+    </button>
   </div>
 
   <!-- Image carousel -->
@@ -64,13 +65,8 @@ const optimizedImages = await Promise.all(
     client:visible
     images={optimizedImages}
     title={project.title}
+    hint="cursor"
+    imageStyles={project.imageStyles}
   />
 
-  <!-- See case study button (mobile only) -->
-  <a
-    href={`/projects/${project.slug}`}
-    class="inline-block md:hidden mt-8 px-5 py-2.5 text-base max-[440px]:px-3.5 max-[440px]:py-1.5 max-[440px]:text-sm border border-black rounded-full hover:bg-black hover:text-white transition-colors whitespace-nowrap"
-  >
-    See case study
-  </a>
 </article>

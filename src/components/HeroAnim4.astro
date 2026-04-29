@@ -1,0 +1,26 @@
+---
+const text = "Bonjour I'm Célia — Freelance Senior Product and Visual Designer working with startups, design studios and e-commerce brands.";
+const words = text.split(" ");
+---
+
+<section class="px-4 md:px-8 pt-16 md:pt-24 pb-20 md:pb-32">
+  <div class="max-w-[900px] mx-auto text-center">
+    <h1 class="font-editorial text-[50px] leading-[1.15] text-text">
+      {words.map((word, i) => (
+        <span class="word inline-block" style={`animation-delay: ${i * 60}ms`}>{word}</span>
+      ))}
+    </h1>
+  </div>
+</section>
+
+<style>
+  .word {
+    opacity: 0;
+    filter: blur(12px);
+    margin-right: 0.25em;
+    animation: wordBlur 0.9s ease-out forwards;
+  }
+  @keyframes wordBlur {
+    to { opacity: 1; filter: blur(0); }
+  }
+</style>

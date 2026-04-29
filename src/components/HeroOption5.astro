@@ -1,0 +1,39 @@
+---
+
+---
+
+<section class="px-4 md:px-8 pt-20 md:pt-32 pb-20 md:pb-32">
+  <div class="max-w-[1000px]">
+    <h1 class="font-editorial text-[36px] md:text-[68px] leading-[1.1] tracking-[-0.01em]">
+      Bonjour, I'm Célia.<br/>
+      A freelance designer for
+      <span class="relative inline-block align-baseline">
+        <span class="rotator inline-block italic">
+          <span>startups.</span>
+          <span>studios.</span>
+          <span>e-commerce.</span>
+          <span>founders.</span>
+        </span>
+      </span>
+    </h1>
+  </div>
+</section>
+
+<style>
+  .rotator {
+    overflow: hidden;
+    height: 1.1em;
+    vertical-align: bottom;
+    position: relative;
+  }
+  .rotator span {
+    display: block;
+    animation: rotate 8s steps(4) infinite;
+  }
+  @keyframes rotate {
+    0%, 25% { transform: translateY(0); }
+    25.01%, 50% { transform: translateY(-1.1em); }
+    50.01%, 75% { transform: translateY(-2.2em); }
+    75.01%, 100% { transform: translateY(-3.3em); }
+  }
+</style>

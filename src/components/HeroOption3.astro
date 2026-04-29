@@ -1,65 +1,54 @@
 ---
 import { getImage } from 'astro:assets';
-import img1 from '../assets/images/projects/ennismore-1.jpg';
-import img2 from '../assets/images/projects/delli-1.jpg';
-import img3 from '../assets/images/projects/different-kind-1.jpg';
-import img4 from '../assets/images/projects/villa-soulia-1.jpg';
-import img5 from '../assets/images/projects/allergan-1.jpg';
-import img6 from '../assets/images/projects/ennismore-2.jpg';
-
-const images = await Promise.all([
-  getImage({ src: img1, width: 300, format: 'webp', quality: 80 }),
-  getImage({ src: img2, width: 300, format: 'webp', quality: 80 }),
-  getImage({ src: img3, width: 300, format: 'webp', quality: 80 }),
-  getImage({ src: img4, width: 300, format: 'webp', quality: 80 }),
-  getImage({ src: img5, width: 300, format: 'webp', quality: 80 }),
-  getImage({ src: img6, width: 300, format: 'webp', quality: 80 }),
-]);
+const allImages = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/assets/images/projects/*.jpg',
+  { eager: true }
+);
+const picks = [
+  '/src/assets/images/projects/delli-1.jpg',
+  '/src/assets/images/projects/different-kind-1.jpg',
+  '/src/assets/images/projects/villa-soulia-2.jpg',
+  '/src/assets/images/projects/ennismore-1.jpg',
+];
+const optimized = await Promise.all(picks.map(async (p) => {
+  const m = allImages[p];
+  if (!m) return null;
+  return await getImage({ src: m.default, height: 400, format: 'webp', quality: 85 });
+}));
 ---
 
-<!-- Option 3: Vertical Marquee Columns -->
-<section class="px-4 md:px-8 pt-16 md:pt-24 pb-20 md:pb-32 relative overflow-hidden bg-[#DCE3F9] md:min-h-[420px]">
-  <div class="max-w-[586px] relative z-10">
-    <h1 class="font-editorial text-[28px] md:text-[38px] leading-[1.2] text-text">
-      Bonjour I'm Célia — Freelance Senior Product and Visual Designer working with startups, design studios and e-commerce brands.
-    </h1>
-  </div>
-
-  <div class="hidden md:flex absolute right-[60px] top-0 bottom-0 w-[380px] gap-3 overflow-hidden" aria-hidden="true">
-    <!-- Column 1 - scrolls up -->
-    <div class="flex flex-col gap-3 w-1/2 hero-marquee-up">
-      <img src={images[0].src} alt="" class="w-full h-[200px] object-cover rounded-xl" />
-      <img src={images[1].src} alt="" class="w-full h-[160px] object-cover rounded-xl" />
-      <img src={images[2].src} alt="" class="w-full h-[200px] object-cover rounded-xl" />
-      <img src={images[0].src} alt="" class="w-full h-[200px] object-cover rounded-xl" />
-      <img src={images[1].src} alt="" class="w-full h-[160px] object-cover rounded-xl" />
-      <img src={images[2].src} alt="" class="w-full h-[200px] object-cover rounded-xl" />
+<section class="px-4 md:px-8 pt-12 md:pt-20 pb-20 md:pb-32 relative overflow-hidden">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+    <div class="relative z-10">
+      <h1 class="font-editorial text-[32px] md:text-[44px] leading-[1.15] tracking-[-0.01em] mb-6">
+        Bonjour I'm Célia — Freelance Senior Product and Visual Designer working with startups, design studios and e-commerce brands.
+      </h1>
+      <a href="#contact" class="inline-block px-5 py-2.5 text-base border border-black rounded-full hover:bg-black hover:text-white transition-colors">
+        Get in touch
+      </a>
     </div>
-    <!-- Column 2 - scrolls down -->
-    <div class="flex flex-col gap-3 w-1/2 hero-marquee-down">
-      <img src={images[3].src} alt="" class="w-full h-[160px] object-cover rounded-xl" />
-      <img src={images[4].src} alt="" class="w-full h-[200px] object-cover rounded-xl" />
-      <img src={images[5].src} alt="" class="w-full h-[160px] object-cover rounded-xl" />
-      <img src={images[3].src} alt="" class="w-full h-[160px] object-cover rounded-xl" />
-      <img src={images[4].src} alt="" class="w-full h-[200px] object-cover rounded-xl" />
-      <img src={images[5].src} alt="" class="w-full h-[160px] object-cover rounded-xl" />
+
+    <div class="relative h-[420px] md:h-[480px]">
+      {optimized[0] && (
+        <div class="absolute top-0 left-[10%] w-[55%] aspect-[3/4] rounded-xl overflow-hidden shadow-xl rotate-[-6deg] bg-gray-100 hover:rotate-0 transition-transform duration-500">
+          <img src={optimized[0].src} alt="" class="w-full h-full object-cover" />
+        </div>
+      )}
+      {optimized[1] && (
+        <div class="absolute top-[15%] right-0 w-[50%] aspect-[4/5] rounded-xl overflow-hidden shadow-xl rotate-[5deg] bg-gray-100 hover:rotate-0 transition-transform duration-500">
+          <img src={optimized[1].src} alt="" class="w-full h-full object-cover" />
+        </div>
+      )}
+      {optimized[2] && (
+        <div class="absolute bottom-0 left-[25%] w-[45%] aspect-square rounded-xl overflow-hidden shadow-xl rotate-[-3deg] bg-gray-100 hover:rotate-0 transition-transform duration-500">
+          <img src={optimized[2].src} alt="" class="w-full h-full object-cover" />
+        </div>
+      )}
+      {optimized[3] && (
+        <div class="absolute bottom-[10%] right-[8%] w-[35%] aspect-[3/4] rounded-xl overflow-hidden shadow-xl rotate-[8deg] bg-gray-100 hover:rotate-0 transition-transform duration-500">
+          <img src={optimized[3].src} alt="" class="w-full h-full object-cover" />
+        </div>
+      )}
     </div>
   </div>
 </section>
-
-<style>
-  @keyframes marquee-up {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-50%); }
-  }
-  @keyframes marquee-down {
-    0% { transform: translateY(-50%); }
-    100% { transform: translateY(0); }
-  }
-  .hero-marquee-up {
-    animation: marquee-up 20s linear infinite;
-  }
-  .hero-marquee-down {
-    animation: marquee-down 20s linear infinite;
-  }
-</style>

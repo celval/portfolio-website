@@ -1,0 +1,39 @@
+---
+import Layout from '../layouts/Layout.astro';
+import HeaderClient from '../components/HeaderClient';
+import ProjectCardSplit from '../components/ProjectCardSplit.astro';
+import ProjectCardBento from '../components/ProjectCardBento.astro';
+import ProjectCardEditorial from '../components/ProjectCardEditorial.astro';
+import { projects } from '../data/projects';
+
+const project = projects[0];
+---
+
+<Layout title="Case study layout options">
+  <HeaderClient client:load />
+  <main class="pb-32">
+    <section class="px-4 md:px-8 pt-12">
+      <div class="mb-6">
+        <p class="font-geist text-xs uppercase tracking-[0.15em] text-text-light mb-2">Option 1 — Split layout (sticky title + horizontal scroll)</p>
+        <p class="font-geist text-sm text-text-light max-w-[600px]">The project title and tags stay pinned on the left while images scroll-snap horizontally on the right.</p>
+      </div>
+      <ProjectCardSplit project={project} />
+    </section>
+
+    <section class="px-4 md:px-8 pt-12">
+      <div class="mb-6">
+        <p class="font-geist text-xs uppercase tracking-[0.15em] text-text-light mb-2">Option 2 — Bento grid (one featured + supporting tiles)</p>
+        <p class="font-geist text-sm text-text-light max-w-[600px]">A larger hero image with smaller squares around it. No interaction needed — everything visible at once.</p>
+      </div>
+      <ProjectCardBento project={project} />
+    </section>
+
+    <section class="px-4 md:px-8 pt-12">
+      <div class="mb-6">
+        <p class="font-geist text-xs uppercase tracking-[0.15em] text-text-light mb-2">Option 3 — Editorial (full-bleed hero + alternating rows)</p>
+        <p class="font-geist text-sm text-text-light max-w-[600px]">Full-width hero image up top, title/tags below, then alternating widths in a vertical flow — magazine-style.</p>
+      </div>
+      <ProjectCardEditorial project={project} />
+    </section>
+  </main>
+</Layout>

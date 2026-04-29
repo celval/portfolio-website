@@ -1,0 +1,21 @@
+---
+import Layout from '../layouts/Layout.astro';
+import HeaderClient from '../components/HeaderClient';
+import HeroCollage from '../components/HeroCollage.astro';
+import HeroMarquee from '../components/HeroMarquee.astro';
+---
+
+<Layout title="Hero versions">
+  <HeaderClient client:load />
+  <main>
+    <div class="px-4 md:px-8 py-6 border-b border-black/10">
+      <p class="font-geist text-xs uppercase tracking-[0.15em] text-text-light">Option 1 — Bento collage</p>
+    </div>
+    <HeroCollage />
+
+    <div class="px-4 md:px-8 py-6 border-y border-black/10">
+      <p class="font-geist text-xs uppercase tracking-[0.15em] text-text-light">Option 2 — Slow horizontal marquee</p>
+    </div>
+    <HeroMarquee />
+  </main>
+</Layout>

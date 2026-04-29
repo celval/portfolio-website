@@ -9,8 +9,11 @@ const serviceColors: Record<string, string> = {
   "Product Design": "#ffdf48",
   "Visual Design": "#6ed4e0",
   "Brand Identity": "#e5bbe3",
+  "Web Design": "#d6e06e",
+  "Marketing Design": "#9fdcb3",
+  "Design System": "#c5b3f0",
+  "No-Code Development": "#f5b78a",
   "Prototyping": "#FFAD31",
-  "Design System": "#dcd400",
   "Art Direction": "#ffd631",
   "Brand Guidelines": "#e5bbe3",
   "Mixpanel": "#dcd400",
@@ -22,8 +25,11 @@ const services = [
   "Product Design",
   "Visual Design",
   "Brand Identity",
-  "Prototyping",
+  "Web Design",
+  "Marketing Design",
   "Design System",
+  "No-Code Development",
+  "Prototyping",
   "Art Direction",
   "Brand Guidelines",
   "Mixpanel",
@@ -55,7 +61,7 @@ const testimonials = [
   },
   {
     quote:
-      "Célia brought a fresh perspective to our brand and delivered exceptional work across visual identity and web design. Her attention to detail and collaborative approach made the whole process seamless.",
+      "We've worked with Célia multiple times over the years and she consistently delivers high-quality work, playing an important role in developing our digital design approach across retail communications and the Championships. She helped modernise our email design process and supported our move into Figma, resulting in more cohesive and efficient output. Creative, organised, and proactive — I'd highly recommend her to any team.",
     name: "Fenella R.",
     role: "Senior Designer at Wimbledon",
     logo: logoWimbledon,
@@ -198,28 +204,35 @@ export default function AboutOverlay({ isOpen, onClose }: Props) {
                 <h2 className="font-editorial text-[28px] leading-[1.2] mb-8 md:mb-5">
                   Testimonials
                 </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                  {testimonials.map((t, i) => (
-                    <blockquote key={i}>
-                      <p className="text-base md:text-[15px] leading-[24px] mb-4">
-                        {t.quote}
-                      </p>
-                      <footer className="flex items-center gap-3">
-                        <img
-                          src={t.logo.src}
-                          alt={`${t.name} company logo`}
-                          className="w-10 h-10 rounded-full object-cover shrink-0"
-                        />
-                        <div className="flex flex-col gap-0.5 md:gap-1">
-                          <span className="font-medium text-[14px] leading-none text-[var(--color-text)]">
-                            {t.name}
-                          </span>
-                          <span className="text-[14px] leading-none text-[var(--color-text-light)]">
-                            {t.role}
-                          </span>
-                        </div>
-                      </footer>
-                    </blockquote>
+                <div className="flex flex-col md:flex-row gap-12">
+                  {[[0, 2], [1, 3]].map((col, ci) => (
+                    <div key={ci} className="flex-1 flex flex-col gap-12">
+                      {col.map((idx) => {
+                        const t = testimonials[idx];
+                        return (
+                          <blockquote key={idx}>
+                            <p className="text-base md:text-[15px] leading-[24px] mb-4 whitespace-pre-line">
+                              {t.quote}
+                            </p>
+                            <footer className="flex items-center gap-3">
+                              <img
+                                src={t.logo.src}
+                                alt={`${t.name} company logo`}
+                                className="w-10 h-10 rounded-full object-cover shrink-0"
+                              />
+                              <div className="flex flex-col gap-0.5 md:gap-1">
+                                <span className="font-medium text-[14px] leading-none text-[var(--color-text)]">
+                                  {t.name}
+                                </span>
+                                <span className="text-[14px] leading-none text-[var(--color-text-light)]">
+                                  {t.role}
+                                </span>
+                              </div>
+                            </footer>
+                          </blockquote>
+                        );
+                      })}
+                    </div>
                   ))}
                 </div>
               </section>

@@ -1,0 +1,50 @@
+---
+import { getImage } from 'astro:assets';
+import { type Project, tagColors } from '../data/projects';
+
+interface Props { project: Project; }
+const { project } = Astro.props;
+
+const allImages = import.meta.glob<{ default: ImageMetadata }>('/src/assets/images/projects/*.jpg', { eager: true });
+const optimized = await Promise.all(project.images.map(async (src) => {
+  const m = allImages[src.replace('/images/projects/', '/src/assets/images/projects/')];
+  if (!m) return src;
+  return (await getImage({ src: m.default, width: 1000, format: 'webp', quality: 85 })).src;
+}));
+---
+
+<article class="pb-[120px] last:pb-0">
+  <div class="grid grid-cols-1 md:grid-cols-[260px_1fr] gap-8 md:gap-10 items-start">
+    <!-- Sticky title column -->
+    <div class="md:sticky md:top-32 md:self-start">
+      <h3 class="font-geist text-[22px] md:text-[24px] leading-[1.2] mb-3 tracking-[-0.25px]">
+        {project.title}
+      </h3>
+      <p class="font-geist text-sm text-text-light mb-4 leading-[1.5]">{project.description}</p>
+      <div class="flex flex-wrap gap-1 mb-4">
+        {project.tags.map((tag) => (
+          <span class="px-2 py-1 text-xs rounded-sm text-black" style={`background-color: ${tagColors[tag] || '#e0e0e0'}`}>{tag}</span>
+        ))}
+      </div>
+      <button type="button" disabled class="px-4 py-2 text-sm border border-black/20 text-black/40 rounded-full whitespace-nowrap cursor-not-allowed">
+        Case study coming soon
+      </button>
+    </div>
+
+    <!-- Horizontal scroll snap strip -->
+    <div class="overflow-x-auto -mx-4 md:mx-0 px-4 md:px-0 snap-x snap-mandatory scroll-smooth scrollbar-hide">
+      <div class="flex gap-3">
+        {optimized.map((src, i) => (
+          <div class="snap-start shrink-0 w-[320px] h-[400px] md:w-[420px] md:h-[500px] rounded-lg overflow-hidden bg-gray-100">
+            <img src={src} alt={`${project.title} — image ${i + 1}`} class="w-full h-full object-cover" loading={i < 2 ? 'eager' : 'lazy'} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</article>
+
+<style is:global>
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  .scrollbar-hide { scrollbar-width: none; }
+</style>

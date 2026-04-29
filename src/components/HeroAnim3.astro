@@ -1,0 +1,44 @@
+---
+
+---
+
+<section class="px-4 md:px-8 pt-16 md:pt-24 pb-20 md:pb-32">
+  <div class="max-w-[900px] mx-auto text-center">
+    <h1
+      id="scramble-target"
+      data-final="Bonjour I'm Célia — Freelance Senior Product and Visual Designer working with startups, design studios and e-commerce brands."
+      class="font-editorial text-[50px] leading-[1.15] text-text"
+    ></h1>
+  </div>
+</section>
+
+<script is:inline>
+  (() => {
+    const el = document.getElementById('scramble-target');
+    if (!el) return;
+    const final = el.dataset.final || '';
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    const total = final.length;
+    const duration = 1400;
+    const start = performance.now();
+
+    const tick = (now) => {
+      const t = Math.min(1, (now - start) / duration);
+      const revealed = Math.floor(t * total);
+      let out = '';
+      for (let i = 0; i < total; i++) {
+        if (i < revealed) {
+          out += final[i];
+        } else if (final[i] === ' ' || final[i] === '\n') {
+          out += final[i];
+        } else {
+          out += chars[Math.floor(Math.random() * chars.length)];
+        }
+      }
+      el.textContent = out;
+      if (t < 1) requestAnimationFrame(tick);
+      else el.textContent = final;
+    };
+    requestAnimationFrame(tick);
+  })();
+</script>
