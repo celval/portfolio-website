@@ -125,7 +125,7 @@ export default function AboutOverlay({ isOpen, onClose }: Props) {
             className={
               isDesktop
                 ? "fixed inset-0 m-auto w-[calc(100%-64px)] max-w-[742px] h-[calc(100%-64px)] max-h-[90vh] bg-white z-50 overflow-y-auto rounded-2xl"
-                : "fixed bottom-0 left-0 right-0 max-h-[90vh] bg-white z-50 overflow-y-auto rounded-t-2xl"
+                : "fixed bottom-0 left-0 right-0 h-[80vh] bg-white z-50 overflow-y-auto rounded-t-2xl"
             }
           >
             {/* Close button */}
@@ -146,7 +146,10 @@ export default function AboutOverlay({ isOpen, onClose }: Props) {
               </svg>
             </button>
 
-            <div className="px-6 pt-12 pb-6 md:px-12 md:py-16">
+            <div className="md:hidden sticky top-0 bg-white pt-2 pb-1 flex justify-center z-10">
+              <div className="w-10 h-1 rounded-full bg-black/20" />
+            </div>
+            <div className="px-6 pt-4 pb-6 md:px-12 md:py-16 md:pt-12">
               {/* About section */}
               <section className="pb-8 border-b border-gray-200">
                 <h2 className="font-editorial text-[28px] leading-[1.2] mb-8 md:mb-5">
