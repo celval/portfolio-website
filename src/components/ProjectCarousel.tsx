@@ -89,10 +89,9 @@ export default function ProjectCarousel({ images, title, hint = "none", imageSty
   }, [hint, setWidth, x]);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (hint !== "cursor" || !containerRef.current) return;
-    const rect = containerRef.current.getBoundingClientRect();
-    cursorX.set(e.clientX - rect.left);
-    cursorY.set(e.clientY - rect.top);
+    if (hint !== "cursor") return;
+    cursorX.set(e.clientX);
+    cursorY.set(e.clientY);
   };
 
   return (
@@ -100,10 +99,9 @@ export default function ProjectCarousel({ images, title, hint = "none", imageSty
       <div
         ref={containerRef}
         onMouseEnter={(e) => {
-          if (hint !== "cursor" || !containerRef.current) return;
-          const rect = containerRef.current.getBoundingClientRect();
-          cursorX.set(e.clientX - rect.left);
-          cursorY.set(e.clientY - rect.top);
+          if (hint !== "cursor") return;
+          cursorX.set(e.clientX);
+          cursorY.set(e.clientY);
           setHovering(true);
         }}
         onMouseLeave={() => hint === "cursor" && setHovering(false)}
@@ -165,19 +163,20 @@ export default function ProjectCarousel({ images, title, hint = "none", imageSty
           </div>
         </motion.div>
 
-        {/* Cursor hint pill */}
-        {hint === "cursor" && (
-          <motion.div
-            style={{ x: cursorX, y: cursorY, opacity: hovering ? 1 : 0 }}
-            transition={{ opacity: { duration: 0.2 } }}
-            className="pointer-events-none absolute top-0 left-0 z-20 -translate-x-1/2 -translate-y-1/2 bg-black text-white rounded-full px-4 py-2 text-sm font-geist flex items-center gap-2 shadow-lg"
-          >
-            <span aria-hidden="true">←</span>
-            <span>Drag</span>
-            <span aria-hidden="true">→</span>
-          </motion.div>
-        )}
       </div>
+
+      {/* Cursor hint pill — rendered outside overflow-hidden so it isn't clipped */}
+      {hint === "cursor" && (
+        <motion.div
+          style={{ x: cursorX, y: cursorY, opacity: hovering ? 1 : 0 }}
+          transition={{ opacity: { duration: 0.2 } }}
+          className="pointer-events-none fixed top-0 left-0 z-50 -translate-x-1/2 -translate-y-1/2 bg-black text-white rounded-full px-4 py-2 text-sm font-geist flex items-center gap-2 shadow-lg"
+        >
+          <span aria-hidden="true">←</span>
+          <span>Drag</span>
+          <span aria-hidden="true">→</span>
+        </motion.div>
+      )}
 
       {/* Caption hint */}
       {hint === "caption" && (
