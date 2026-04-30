@@ -37,15 +37,14 @@ export default function ProjectCarousel({ images, title, hint = "none", imageSty
     };
   }, [images.length]);
 
-  useEffect(() => {
+  const wrap = () => {
     if (!setWidth) return;
-    const unsub = x.on("change", (v) => {
-      if (isDraggingRef.current) return;
-      if (v <= -setWidth) x.set(v + setWidth);
-      else if (v > 0) x.set(v - setWidth);
-    });
-    return () => unsub();
-  }, [x, setWidth]);
+    const v = x.get();
+    if (v <= -setWidth || v > 0) {
+      const m = ((v % setWidth) + setWidth) % setWidth;
+      x.set(m === 0 ? 0 : m - setWidth);
+    }
+  };
 
   useEffect(() => {
     const el = containerRef.current;
@@ -55,7 +54,7 @@ export default function ProjectCarousel({ images, title, hint = "none", imageSty
       if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
       if (Math.abs(e.deltaX) < 1) return;
       e.preventDefault();
-      animate(x, x.get() - e.deltaX, { type: "tween", duration: 0.2, ease: "easeOut" });
+      animate(x, x.get() - e.deltaX, { type: "tween", duration: 0.2, ease: "easeOut", onComplete: wrap });
     };
 
     el.addEventListener("wheel", handleWheel, { passive: false });
@@ -124,7 +123,8 @@ export default function ProjectCarousel({ images, title, hint = "none", imageSty
           style={{ x }}
           drag="x"
           dragMomentum={true}
-          dragTransition={{ power: 0.6, timeConstant: 350 }}
+          dragElastic={0}
+          dragTransition={{ power: 0.3, timeConstant: 200, modifyTarget: (t) => t }}
           whileTap={{ cursor: hint === "cursor" ? "none" : "grabbing" }}
           onDragStart={() => {
             isDraggingRef.current = true;
@@ -133,12 +133,8 @@ export default function ProjectCarousel({ images, title, hint = "none", imageSty
           onDragEnd={() => {
             isDraggingRef.current = false;
             setIsDragging(false);
-            const v = x.get();
-            if (setWidth) {
-              if (v <= -setWidth) x.set(v + setWidth);
-              else if (v > 0) x.set(v - setWidth);
-            }
           }}
+          onAnimationComplete={wrap}
         >
           <div ref={setRef} className="flex gap-2 pr-2 shrink-0">
             {images.map((src, i) => (
