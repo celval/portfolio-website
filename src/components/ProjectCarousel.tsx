@@ -131,7 +131,7 @@ export default function ProjectCarousel({ images, title, hint = "none", imageSty
             {images.map((src, i) => (
               <div
                 key={`a-${i}`}
-                className="shrink-0 w-[400px] h-[400px] rounded-lg overflow-hidden bg-gray-100"
+                className="shrink-0 w-[280px] h-[280px] md:w-[400px] md:h-[400px] rounded-lg overflow-hidden bg-gray-100"
               >
                 <img
                   src={src}
@@ -148,7 +148,7 @@ export default function ProjectCarousel({ images, title, hint = "none", imageSty
             {images.map((src, i) => (
               <div
                 key={`b-${i}`}
-                className="shrink-0 w-[400px] h-[400px] rounded-lg overflow-hidden bg-gray-100"
+                className="shrink-0 w-[280px] h-[280px] md:w-[400px] md:h-[400px] rounded-lg overflow-hidden bg-gray-100"
               >
                 <img
                   src={src}

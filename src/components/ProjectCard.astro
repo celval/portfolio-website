@@ -54,7 +54,7 @@ const optimizedImages = await Promise.all(
     <button
       type="button"
       disabled
-      class="shrink-0 px-5 py-2.5 text-base border border-black/20 text-black/40 rounded-full whitespace-nowrap cursor-not-allowed"
+      class="hidden md:inline-block shrink-0 px-5 py-2.5 text-base border border-black/20 text-black/40 rounded-full whitespace-nowrap cursor-not-allowed self-start"
     >
       Case study coming soon
     </button>
@@ -69,4 +69,12 @@ const optimizedImages = await Promise.all(
     imageStyles={project.imageStyles}
   />
 
+  <!-- Mobile-only button below images -->
+  <button
+    type="button"
+    disabled
+    class="md:hidden mt-6 px-3.5 py-1.5 text-sm border border-black/20 text-black/40 rounded-full whitespace-nowrap cursor-not-allowed"
+  >
+    Case study coming soon
+  </button>
 </article>

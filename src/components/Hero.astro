@@ -14,7 +14,7 @@ const tiles = [img1, img2, img3, img4, img5, img6, img7, img8];
 
 <section class="pt-10 md:pt-14 pb-12 md:pb-16 overflow-hidden text-text" style="background-color: #D5E3F2;">
   <div class="px-4 md:px-8 mb-10 md:mb-14 hero-fade">
-    <h1 class="font-editorial text-[42px] md:text-[58px] leading-[1.1] text-text tracking-[-0.5px] max-w-[1100px]">
+    <h1 class="font-editorial text-[34px] md:text-[48px] leading-[1.1] text-text tracking-[-0.5px] max-w-[1100px]">
       Bonjour I'm Célia — Freelance Senior Product and Visual Designer working with startups, design studios and e&#8209;commerce brands.
     </h1>
   </div>
@@ -45,7 +45,7 @@ const tiles = [img1, img2, img3, img4, img5, img6, img7, img8];
   }
   .marquee-track {
     display: flex;
-    gap: 16px;
+    gap: 8px;
     width: max-content;
     animation: marqueeScroll 50s linear infinite;
   }
@@ -59,7 +59,7 @@ const tiles = [img1, img2, img3, img4, img5, img6, img7, img8];
   }
   @keyframes marqueeScroll {
     from { transform: translateX(0); }
-    to { transform: translateX(calc(-50% - 8px)); }
+    to { transform: translateX(calc(-50% - 4px)); }
   }
   @media (prefers-reduced-motion: reduce) {
     .marquee-track { animation: none; }
