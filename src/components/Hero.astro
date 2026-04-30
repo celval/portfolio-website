@@ -1,15 +1,14 @@
 ---
 import { Image } from 'astro:assets';
-import img1 from '../assets/images/projects/ennismore-2.jpg';
-import img2 from '../assets/images/projects/different-kind-1.jpg';
-import img3 from '../assets/images/projects/villa-soulia-2.jpg';
-import img4 from '../assets/images/projects/delli-1.jpg';
-import img5 from '../assets/images/projects/allergan-3.jpg';
-import img6 from '../assets/images/projects/ennismore-5.jpg';
-import img7 from '../assets/images/projects/different-kind-3.jpg';
-import img8 from '../assets/images/projects/villa-soulia-5.jpg';
+import img1 from '../assets/images/projects/hero-1.jpg';
+import img2 from '../assets/images/projects/hero-2.jpg';
+import img3 from '../assets/images/projects/hero-3.jpg';
+import img4 from '../assets/images/projects/hero-4.jpg';
+import img5 from '../assets/images/projects/hero-5.jpg';
+import img6 from '../assets/images/projects/hero-6.jpg';
+import img7 from '../assets/images/projects/hero-7.jpg';
 
-const tiles = [img1, img2, img3, img4, img5, img6, img7, img8];
+const tiles = [img1, img2, img3, img4, img5, img6, img7];
 ---
 
 <section class="pt-10 md:pt-14 pb-12 md:pb-16 overflow-hidden text-text" style="background-color: #D5E3F2;">
@@ -26,11 +25,11 @@ const tiles = [img1, img2, img3, img4, img5, img6, img7, img8];
           <Image
             src={src}
             alt=""
-            widths={[400, 600]}
-            sizes="320px"
+            widths={[600, 900]}
+            sizes="(max-width: 768px) 320px, 480px"
             format="webp"
             quality={85}
-            class="w-full h-full object-cover rounded-md"
+            class="rounded-md"
           />
         </div>
       ))}
@@ -50,12 +49,16 @@ const tiles = [img1, img2, img3, img4, img5, img6, img7, img8];
     animation: marqueeScroll 50s linear infinite;
   }
   .marquee-item {
-    width: 320px;
     height: 320px;
     flex-shrink: 0;
     border-radius: 6px;
     overflow: hidden;
     box-shadow: 0 12px 32px -12px rgba(0, 0, 0, 0.15);
+  }
+  .marquee-item img {
+    width: auto;
+    height: 100%;
+    display: block;
   }
   @keyframes marqueeScroll {
     from { transform: translateX(0); }
