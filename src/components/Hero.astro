@@ -44,20 +44,21 @@ const tiles = [img1, img2, img3, img4, img5, img6, img7];
   }
   .marquee-track {
     display: flex;
+    align-items: center;
     gap: 8px;
     width: max-content;
     animation: marqueeScroll 50s linear infinite;
   }
   .marquee-item {
-    height: 320px;
+    width: 320px;
     flex-shrink: 0;
     border-radius: 6px;
     overflow: hidden;
     box-shadow: 0 12px 32px -12px rgba(0, 0, 0, 0.15);
   }
   .marquee-item img {
-    width: auto;
-    height: 100%;
+    width: 100%;
+    height: auto;
     display: block;
   }
   @keyframes marqueeScroll {
