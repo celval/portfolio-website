@@ -52,7 +52,7 @@ export default function HeaderClient() {
 
       <header
         aria-hidden={!scrolledPastHero}
-        className={`flex items-center justify-between px-4 md:px-8 py-4 md:py-8 fixed top-0 left-0 right-0 z-30 bg-white/95 backdrop-blur-sm transition-all duration-500 ease-out ${
+        className={`flex items-center justify-between px-4 md:px-8 py-4 md:py-8 fixed top-0 left-0 right-0 z-30 bg-white/60 backdrop-blur-md transition-all duration-500 ease-out ${
           scrolledPastHero
             ? "translate-y-0 opacity-100"
             : "-translate-y-full opacity-0 pointer-events-none"
