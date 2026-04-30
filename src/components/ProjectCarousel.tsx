@@ -14,6 +14,7 @@ export default function ProjectCarousel({ images, title, hint = "none", imageSty
   const setRef = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
   const [isDragging, setIsDragging] = useState(false);
+  const isDraggingRef = useRef(false);
   const [setWidth, setSetWidth] = useState(0);
 
   // Cursor hint state
@@ -39,6 +40,7 @@ export default function ProjectCarousel({ images, title, hint = "none", imageSty
   useEffect(() => {
     if (!setWidth) return;
     const unsub = x.on("change", (v) => {
+      if (isDraggingRef.current) return;
       if (v <= -setWidth) x.set(v + setWidth);
       else if (v > 0) x.set(v - setWidth);
     });
@@ -124,8 +126,19 @@ export default function ProjectCarousel({ images, title, hint = "none", imageSty
           dragMomentum={true}
           dragTransition={{ power: 0.6, timeConstant: 350 }}
           whileTap={{ cursor: hint === "cursor" ? "none" : "grabbing" }}
-          onDragStart={() => setIsDragging(true)}
-          onDragEnd={() => setIsDragging(false)}
+          onDragStart={() => {
+            isDraggingRef.current = true;
+            setIsDragging(true);
+          }}
+          onDragEnd={() => {
+            isDraggingRef.current = false;
+            setIsDragging(false);
+            const v = x.get();
+            if (setWidth) {
+              if (v <= -setWidth) x.set(v + setWidth);
+              else if (v > 0) x.set(v - setWidth);
+            }
+          }}
         >
           <div ref={setRef} className="flex gap-2 pr-2 shrink-0">
             {images.map((src, i) => (
