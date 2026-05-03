@@ -1,5 +1,5 @@
 ---
-
+import ObfuscatedEmail from './ObfuscatedEmail.tsx';
 ---
 
 <footer id="contact" class="bg-footer-bg text-footer-text pt-16 md:pt-24 pb-0">
@@ -7,7 +7,7 @@
     <div class="max-w-[600px] md:max-w-[640px]">
       <p class="font-editorial text-[22px] md:text-[36px] leading-[1.4] md:leading-[1.2]">
         If you have a project in mind or are looking for design support, I'd love to hear from you at
-        [<a href="mailto:hi@celiavalette.com" class="underline underline-offset-4 hover:opacity-80 transition-opacity">hi@celiavalette.com</a>].
+        [<ObfuscatedEmail client:load className="underline underline-offset-4 hover:opacity-80 transition-opacity" />].
       </p>
     </div>
 
