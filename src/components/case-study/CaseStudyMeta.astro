@@ -1,0 +1,29 @@
+---
+import { tagColors } from '../../data/projects';
+
+interface MetaItem { label: string; value: string; }
+interface Props {
+  meta: MetaItem[];
+  tags: string[];
+}
+const { meta, tags } = Astro.props;
+---
+
+<aside class="md:w-[200px] md:shrink-0 self-start mb-10 md:mb-0">
+  <dl class="space-y-5">
+    {meta.map((m) => (
+      <div>
+        <dt class="font-geist text-[11px] uppercase tracking-[0.12em] text-text-light mb-1">{m.label}</dt>
+        <dd class="font-geist text-[15px] text-text leading-[1.4]">{m.value}</dd>
+      </div>
+    ))}
+  </dl>
+
+  {tags.length > 0 && (
+    <div class="flex flex-wrap gap-1 mt-6">
+      {tags.map((tag) => (
+        <span class="px-2 py-1 text-xs rounded-sm text-black" style={`background-color: ${tagColors[tag] || '#e0e0e0'}`}>{tag}</span>
+      ))}
+    </div>
+  )}
+</aside>

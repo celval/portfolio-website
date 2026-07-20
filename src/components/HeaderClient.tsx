@@ -1,26 +1,40 @@
 import { useState, useEffect } from "react";
 import AboutOverlay from "./AboutOverlay";
 
-export default function HeaderClient() {
+interface Props {
+  /** Background colour of the inline header band. Defaults to the homepage hero band. */
+  bandColor?: string;
+  /** Nav contrast on the band: "light" = white text/borders (dark band), "dark" = black. */
+  variant?: "light" | "dark";
+  /** CSS selector for the element whose scroll-out reveals the sticky nav. */
+  sentinelSelector?: string;
+}
+
+export default function HeaderClient({
+  bandColor = "#D5E3F2",
+  variant = "dark",
+  sentinelSelector = "section",
+}: Props) {
   const [aboutOpen, setAboutOpen] = useState(false);
   const [scrolledPastHero, setScrolledPastHero] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      const hero = document.querySelector("section");
-      if (hero) {
-        const heroBottom = hero.getBoundingClientRect().bottom;
-        setScrolledPastHero(heroBottom <= 0);
+      const sentinel = document.querySelector(sentinelSelector);
+      if (sentinel) {
+        const bottom = sentinel.getBoundingClientRect().bottom;
+        setScrolledPastHero(bottom <= 0);
       }
     };
+    handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [sentinelSelector]);
 
-  const renderNav = (variant: "light" | "dark") => {
-    const textColor = variant === "light" ? "text-white" : "text-text";
+  const renderNav = (navVariant: "light" | "dark") => {
+    const textColor = navVariant === "light" ? "text-white" : "text-text";
     const btnClass =
-      variant === "light"
+      navVariant === "light"
         ? "px-5 py-2.5 text-base max-[440px]:px-3.5 max-[440px]:py-1.5 max-[440px]:text-sm border border-white text-white rounded-full hover:bg-white hover:text-black transition-colors"
         : "px-5 py-2.5 text-base max-[440px]:px-3.5 max-[440px]:py-1.5 max-[440px]:text-sm border border-black rounded-full hover:bg-black hover:text-white transition-colors";
 
@@ -46,8 +60,11 @@ export default function HeaderClient() {
 
   return (
     <>
-      <header className="flex items-center justify-between px-4 md:px-8 py-4 md:py-8 relative z-10" style={{ backgroundColor: "#D5E3F2" }}>
-        {renderNav("dark")}
+      <header
+        className="flex items-center justify-between px-4 md:px-8 py-4 md:py-8 relative z-10"
+        style={{ backgroundColor: bandColor }}
+      >
+        {renderNav(variant)}
       </header>
 
       <header

@@ -1,0 +1,31 @@
+---
+import { Image } from 'astro:assets';
+
+interface Props {
+  src: ImageMetadata;
+  alt?: string;
+  caption?: string;
+  /** Wrap the image in a soft grey backing panel, matching the Figma mockup frames. */
+  frame?: boolean;
+  /** For very wide diagrams: keep native width and scroll horizontally on small screens. */
+  scroll?: boolean;
+}
+const { src, alt = '', caption, frame = false, scroll = false } = Astro.props;
+---
+
+<figure class="my-10 md:my-14">
+  <div class={`${frame ? 'rounded-lg bg-[#f4f4f2] p-4 md:p-8' : ''} ${scroll ? 'overflow-x-auto' : ''}`}>
+    <Image
+      src={src}
+      alt={alt}
+      widths={[480, 800, 1200, 1600]}
+      sizes={scroll ? '900px' : '(max-width: 768px) 100vw, 710px'}
+      format="webp"
+      quality={80}
+      loading="lazy"
+      decoding="async"
+      class={`h-auto ${scroll ? 'min-w-[720px] w-full' : 'w-full'} ${frame ? 'rounded-md' : 'rounded-lg'}`}
+    />
+  </div>
+  {caption && <figcaption class="mt-2 font-geist text-xs text-text">{caption}</figcaption>}
+</figure>

@@ -1,0 +1,45 @@
+---
+import { Image } from 'astro:assets';
+
+interface Props {
+  /** The main desktop mockup. */
+  desktop: ImageMetadata;
+  /** A tall full-page scroll preview shown alongside the desktop mock. */
+  strip: ImageMetadata;
+  alt?: string;
+  caption?: string;
+}
+const { desktop, strip, alt = '', caption } = Astro.props;
+---
+
+<figure class="my-10 md:my-14">
+  <div class="rounded-lg bg-[#f4f4f2] p-4 md:p-6 flex items-start gap-3 md:gap-4">
+    <div class="flex-1 min-w-0">
+      <Image
+        src={desktop}
+        alt={alt}
+        widths={[400, 700, 1000]}
+        sizes="(max-width: 768px) 68vw, 500px"
+        format="webp"
+        quality={80}
+        loading="lazy"
+        decoding="async"
+        class="w-full h-auto rounded-md"
+      />
+    </div>
+    <div class="w-[22%] shrink-0">
+      <Image
+        src={strip}
+        alt=""
+        widths={[140, 280]}
+        sizes="140px"
+        format="webp"
+        quality={80}
+        loading="lazy"
+        decoding="async"
+        class="w-full h-auto rounded-md"
+      />
+    </div>
+  </div>
+  {caption && <figcaption class="mt-2 font-geist text-xs text-text">{caption}</figcaption>}
+</figure>

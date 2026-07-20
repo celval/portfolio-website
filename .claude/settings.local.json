@@ -39,7 +39,10 @@
       "mcp__Claude_Preview__preview_start",
       "mcp__figma-mcp-go__get_metadata",
       "mcp__figma-mcp-go__get_pages",
-      "mcp__figma-mcp-go__get_selection"
+      "mcp__figma-mcp-go__get_selection",
+      "mcp__fd775d07-e3ca-40a0-a463-366af9adf9fd__whoami",
+      "mcp__figma-mcp-go__get_document",
+      "Bash(python3 -c ' *)"
     ]
   }
 }

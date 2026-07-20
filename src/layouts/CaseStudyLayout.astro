@@ -1,0 +1,119 @@
+---
+import Layout from './Layout.astro';
+import HeaderClient from '../components/HeaderClient';
+import Footer from '../components/Footer.astro';
+import CaseStudyMeta from '../components/case-study/CaseStudyMeta.astro';
+
+interface MetaItem { label: string; value: string; }
+
+interface Props {
+  title: string;
+  tagline: string;
+  accent: string;
+  navVariant: 'light' | 'dark';
+  tags: string[];
+  meta: MetaItem[];
+  lead: string;
+}
+
+const { title, tagline, accent, navVariant, tags, meta, lead } = Astro.props;
+const titleColor = navVariant === 'light' ? 'text-white' : 'text-text';
+---
+
+<Layout title={`${title} — Célia Valette`}>
+  <!-- Hero band (accent colour, houses the header + case-study title) -->
+  <div id="cs-hero" style={`background-color: ${accent}`}>
+    <HeaderClient
+      bandColor={accent}
+      variant={navVariant}
+      sentinelSelector="#cs-hero"
+      client:load
+    />
+    <div class="px-4 md:px-8 pt-6 md:pt-10 pb-14 md:pb-20">
+      <h1 class={`font-editorial text-[30px] md:text-[46px] leading-[1.1] max-w-[900px] ${titleColor}`}>
+        {title} — {tagline}
+      </h1>
+    </div>
+  </div>
+
+  <main class="px-4 md:px-8 pt-12 md:pt-16 pb-24">
+    <div class="mx-auto max-w-[1000px] md:flex md:gap-[72px]">
+      <CaseStudyMeta meta={meta} tags={tags} />
+
+      <article class="case-study-prose flex-1 md:max-w-[710px]">
+        {lead && <p class="case-study-lead">{lead}</p>}
+        <slot />
+      </article>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style is:global>
+  /* Typography for the MDX case-study body (slotted content needs global scope). */
+  .case-study-prose {
+    font-family: var(--font-geist);
+    color: var(--color-text);
+  }
+  /* First block sits flush with the top of the sidebar */
+  .case-study-prose > :first-child {
+    margin-top: 0;
+  }
+  .case-study-lead {
+    font-size: 17px;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+  .case-study-prose p {
+    font-size: 15px;
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
+    max-width: 640px;
+  }
+  /* Serif section headings (## in MDX) */
+  .case-study-prose h2 {
+    font-family: var(--font-editorial);
+    font-size: 26px;
+    line-height: 1.2;
+    margin-top: 4rem;
+    margin-bottom: 1.25rem;
+  }
+  /* Bold sub-headings (### in MDX) */
+  .case-study-prose h3 {
+    font-family: var(--font-geist);
+    font-weight: 700;
+    font-size: 15px;
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+  }
+  .case-study-prose ul {
+    list-style: disc;
+    padding-left: 1.25rem;
+    margin: 1.25rem 0;
+    max-width: 640px;
+  }
+  .case-study-prose li {
+    font-size: 15px;
+    line-height: 1.7;
+    margin-bottom: 0.25rem;
+  }
+  /* Geist-bold headers (opt-in via raw HTML in MDX) */
+  .case-study-prose .cs-bold-heading {
+    font-family: var(--font-geist);
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 1.4;
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+  }
+  /* Tighten the gap when a module directly follows a bold heading */
+  .case-study-prose .cs-bold-heading + div {
+    margin-top: 1rem;
+  }
+  .case-study-prose strong { font-weight: 500; }
+  .case-study-prose a { text-decoration: underline; text-underline-offset: 3px; }
+  @media (min-width: 768px) {
+    .case-study-prose h2 { font-size: 28px; }
+  }
+</style>

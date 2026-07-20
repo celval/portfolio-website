@@ -158,24 +158,16 @@ export default function AboutOverlay({ isOpen, onClose }: Props) {
                 <div className="space-y-4 text-base md:text-[15px] leading-[1.6] md:leading-[24px] text-[var(--color-text)]">
                   <p>
                     I'm Célia, a freelance Product and Visual Designer based in
-                    London, with 8 years of experience across product, brand,
-                    and UI.
-                  </p>
-                  <p>
-                    My work focuses on product experiences, interfaces and visual
-                    identity with a particular interest in where product and
-                    brand design overlap.
+                    London, with 8 years of experience across product, brand and
+                    UI.
                   </p>
                   <p>
                     I collaborate with design studios, e-commerce brands and
                     startups in lifestyle, food, health and hospitality to refine
                     existing products, launch new features and evolve brands and
-                    digital experiences.
-                  </p>
-                  <p>
-                    I work closely with founders, product, and engineering teams
-                    — either as part of a team or independently from start to
-                    finish.
+                    digital experiences. I work closely with founders, product
+                    and engineering teams either as part of a team or
+                    independently from start to finish.
                   </p>
                   <p>
                     If you have a project in mind or are looking for design

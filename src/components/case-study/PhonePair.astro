@@ -1,0 +1,30 @@
+---
+import { Image } from 'astro:assets';
+
+interface Props {
+  images: ImageMetadata[];
+  caption?: string;
+  /** Soft grey backing panel behind the mockups. Defaults on. */
+  frame?: boolean;
+}
+const { images, caption, frame = true } = Astro.props;
+---
+
+<figure class="my-10 md:my-14">
+  <div class={`flex justify-center gap-4 md:gap-8 ${frame ? 'rounded-lg bg-[#f4f4f2] p-6 md:p-10' : ''}`}>
+    {images.map((img) => (
+      <Image
+        src={img}
+        alt=""
+        widths={[200, 360, 520]}
+        sizes="(max-width: 768px) 45vw, 260px"
+        format="webp"
+        quality={80}
+        loading="lazy"
+        decoding="async"
+        class="w-full max-w-[260px] h-auto"
+      />
+    ))}
+  </div>
+  {caption && <figcaption class="mt-2 font-geist text-xs text-text">{caption}</figcaption>}
+</figure>

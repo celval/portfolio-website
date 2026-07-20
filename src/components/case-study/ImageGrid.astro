@@ -1,0 +1,48 @@
+---
+import { Image } from 'astro:assets';
+
+interface Props {
+  images: ImageMetadata[];
+  /** Columns on desktop (mobile is always 2). */
+  cols?: number;
+  caption?: string;
+  frame?: boolean;
+}
+const { images, cols = 3, caption, frame = false } = Astro.props;
+// On mobile: stack 2-up grids to a single column; keep 3+ grids at 2 columns.
+const mobileCols = cols >= 3 ? 2 : 1;
+---
+
+<figure class="my-10 md:my-14">
+  <div class={frame ? 'rounded-lg bg-[#f4f4f2] p-4 md:p-6' : ''}>
+    <div class="cs-grid" style={`--cols: ${cols}; --cols-mobile: ${mobileCols}`}>
+      {images.map((img) => (
+        <Image
+          src={img}
+          alt=""
+          widths={[320, 480, 720]}
+          sizes="(max-width: 768px) 90vw, 340px"
+          format="webp"
+          quality={80}
+          loading="lazy"
+          decoding="async"
+          class="w-full h-auto rounded-md"
+        />
+      ))}
+    </div>
+  </div>
+  {caption && <figcaption class="mt-2 font-geist text-xs text-text">{caption}</figcaption>}
+</figure>
+
+<style>
+  .cs-grid {
+    display: grid;
+    gap: 0.75rem;
+    grid-template-columns: repeat(var(--cols-mobile), minmax(0, 1fr));
+  }
+  @media (min-width: 768px) {
+    .cs-grid {
+      grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+    }
+  }
+</style>

@@ -1,0 +1,20 @@
+---
+interface Item { value: string; label: string; }
+interface Props {
+  items: Item[];
+  note?: string;
+}
+const { items, note } = Astro.props;
+---
+
+<div class="my-10 md:my-12">
+  <div class="grid gap-3 sm:grid-cols-2 max-w-[520px]">
+    {items.map((item) => (
+      <div class="rounded-lg bg-[#f4f4f2] p-6">
+        <div class="font-editorial text-[40px] md:text-[48px] leading-none mb-2">{item.value}</div>
+        <div class="font-geist text-sm text-text-light">{item.label}</div>
+      </div>
+    ))}
+  </div>
+  {note && <p class="mt-6 font-geist text-[15px] leading-[1.7] text-text">{note}</p>}
+</div>
