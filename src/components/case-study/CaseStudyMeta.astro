@@ -1,6 +1,4 @@
 ---
-import { tagColors } from '../../data/projects';
-
 interface MetaItem { label: string; value: string; }
 interface Props {
   meta: MetaItem[];
@@ -22,7 +20,7 @@ const { meta, tags } = Astro.props;
   {tags.length > 0 && (
     <div class="flex flex-wrap gap-1 mt-6">
       {tags.map((tag) => (
-        <span class="px-2 py-1 text-xs rounded-sm text-black" style={`background-color: ${tagColors[tag] || '#e0e0e0'}`}>{tag}</span>
+        <span class="rounded-[2px] bg-[#eef2fc] px-2 py-1 font-geist text-xs text-black">{tag}</span>
       ))}
     </div>
   )}

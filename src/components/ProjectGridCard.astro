@@ -1,0 +1,95 @@
+---
+import { getImage } from 'astro:assets';
+import { type Project } from '../data/projects';
+
+interface Props {
+  project: Project;
+  hasCaseStudy?: boolean;
+}
+
+const { project, hasCaseStudy = false } = Astro.props;
+const caseStudyHref = `/work/${project.slug}`;
+
+// Import all project images for optimization
+const allImages = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/assets/images/projects/*.{jpg,png}',
+  { eager: true }
+);
+
+// Optimize the single thumbnail if one is set
+let thumbSrc: string | undefined;
+if (project.thumbnail) {
+  const assetPath = project.thumbnail.replace(
+    '/images/projects/',
+    '/src/assets/images/projects/'
+  );
+  const imageModule = allImages[assetPath];
+  if (imageModule) {
+    const optimized = await getImage({
+      src: imageModule.default,
+      width: 1252,
+      format: 'webp',
+      quality: 85,
+    });
+    thumbSrc = optimized.src;
+  } else {
+    thumbSrc = project.thumbnail;
+  }
+}
+
+const comingSoon = !hasCaseStudy;
+const Tag = hasCaseStudy ? 'a' : 'div';
+const linkProps = hasCaseStudy ? { href: caseStudyHref } : {};
+---
+
+<Tag {...linkProps} class="group block">
+  <!-- Image -->
+  <div class="relative aspect-[626/440] w-full overflow-hidden rounded-md bg-[#f7edea]">
+    {thumbSrc ? (
+      <img
+        src={thumbSrc}
+        alt={project.title}
+        loading="lazy"
+        decoding="async"
+        class:list={[
+          'h-full w-full object-cover transition-transform duration-500',
+          comingSoon ? 'scale-[1.01]' : 'group-hover:scale-[1.02]',
+        ]}
+      />
+    ) : (
+      <div class="flex h-full w-full items-center justify-center text-[#5f5f5f]/60">
+        <span class="font-geist text-sm">Image coming soon</span>
+      </div>
+    )}
+
+    {comingSoon && (
+      <>
+        <!-- Static white veil (no hover effect) -->
+        <div class="absolute inset-0 bg-white/45"></div>
+        <!-- Coming soon badge -->
+        <span
+          class="absolute right-3 top-3 flex items-center whitespace-nowrap rounded-full bg-white/90 px-2.5 py-1 font-geist text-xs text-black backdrop-blur-sm"
+        >
+          Coming soon
+        </span>
+      </>
+    )}
+  </div>
+
+  <!-- Title + description -->
+  <h3 class="font-geist text-[20px] leading-[1.2] mt-6 text-black">
+    {project.title}
+  </h3>
+  <p class="font-geist text-[20px] leading-[1.2] mt-1 text-[#5f5f5f]">
+    {project.description}
+  </p>
+
+  <!-- Tags -->
+  <div class="mt-4 flex flex-wrap gap-1">
+    {project.tags.map((tag) => (
+      <span class="rounded-[2px] bg-[#eef2fc] px-2 py-1 font-geist text-xs text-black">
+        {tag}
+      </span>
+    ))}
+  </div>
+</Tag>

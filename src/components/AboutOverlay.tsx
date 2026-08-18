@@ -5,22 +5,6 @@ import logoEnnismore from "../assets/images/logos/ennismore.png";
 import logoBttr from "../assets/images/logos/bttr.png";
 import logoWimbledon from "../assets/images/logos/wimbledon.png";
 
-const serviceColors: Record<string, string> = {
-  "Product Design": "#ffdf48",
-  "Visual Design": "#6ed4e0",
-  "Brand Identity": "#e5bbe3",
-  "Web Design": "#d6e06e",
-  "Marketing Design": "#9fdcb3",
-  "Design System": "#c5b3f0",
-  "No-Code Development": "#f5b78a",
-  "Prototyping": "#FFAD31",
-  "Art Direction": "#ffd631",
-  "Brand Guidelines": "#e5bbe3",
-  "Mixpanel": "#dcd400",
-  "Framer": "#6ed4e0",
-  "Shopify": "#fcb1c4",
-};
-
 const services = [
   "Product Design",
   "Visual Design",
@@ -157,21 +141,24 @@ export default function AboutOverlay({ isOpen, onClose }: Props) {
                 </h2>
                 <div className="space-y-4 text-base md:text-[15px] leading-[1.6] md:leading-[24px] text-[var(--color-text)]">
                   <p>
-                    I'm Célia, a freelance Product and Visual Designer based in
-                    London, with 8 years of experience across product, brand and
-                    UI.
+                    I'm Célia, a Product and Visual Designer based in London with
+                    8 years of experience.
                   </p>
                   <p>
-                    I collaborate with design studios, e-commerce brands and
-                    startups in lifestyle, food, health and hospitality to refine
-                    existing products, launch new features and evolve brands and
-                    digital experiences. I work closely with founders, product
-                    and engineering teams either as part of a team or
-                    independently from start to finish.
+                    I work with design studios, startups and e-commerce brands,
+                    mostly in lifestyle, food, health and hospitality. I help them
+                    launch new products, evolve their brand and get the small
+                    details right. Along the way I've restructured e-commerce
+                    journeys, lifted conversion, launched full websites for
+                    hospitality and lifestyle brands and helped early-stage teams
+                    find their visual voice.
                   </p>
                   <p>
-                    If you have a project in mind or are looking for design
-                    support, I'd love to hear from you.
+                    I partner closely with founders and small teams, whether I'm
+                    embedded for a few months or running a project end to end. If
+                    you're building
+                    something and need a designer who moves easily between product
+                    and brand, I'd love to hear from you.
                   </p>
                 </div>
               </section>
@@ -185,8 +172,7 @@ export default function AboutOverlay({ isOpen, onClose }: Props) {
                   {services.map((service) => (
                     <span
                       key={service}
-                      className="px-2 py-1 text-xs rounded-sm text-black"
-                      style={{ backgroundColor: serviceColors[service] || '#e0e0e0' }}
+                      className="rounded-[2px] bg-[#eef2fc] px-2 py-1 font-geist text-xs text-black"
                     >
                       {service}
                     </span>
