@@ -1,0 +1,117 @@
+---
+import { Image } from 'astro:assets';
+import Layout from './Layout.astro';
+import HeaderClient from '../components/HeaderClient';
+import Footer from '../components/Footer.astro';
+import CaseStudyMeta from '../components/case-study/CaseStudyMeta.astro';
+
+interface MetaItem { label: string; value: string; }
+
+interface Props {
+  title: string;
+  tagline: string;
+  accent: string;
+  navVariant: 'light' | 'dark';
+  tags: string[];
+  meta: MetaItem[];
+  lead: string;
+  hero?: string;
+}
+
+const { title, tagline, accent, navVariant, tags, meta, lead, hero } = Astro.props;
+const titleColor = navVariant === 'light' ? 'text-white' : 'text-text';
+
+// Resolve the optional hero banner image from its case-studies-relative path.
+const caseStudyImages = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/assets/images/case-studies/**/*.{png,jpg,jpeg}',
+  { eager: true }
+);
+const heroImg = hero
+  ? caseStudyImages[`/src/assets/images/case-studies/${hero}`]?.default
+  : undefined;
+---
+
+<Layout title={`${title} — Célia Valette`}>
+  <!-- Hero band (accent colour, houses the header + case-study title) -->
+  <div id="cs-hero" style={`background-color: ${accent}`}>
+    <HeaderClient
+      bandColor={accent}
+      variant={navVariant}
+      sentinelSelector="#cs-hero"
+      client:load
+    />
+    <div class="max-w-[1200px] mx-auto px-4 md:px-8 pt-6 md:pt-10 pb-14 md:pb-20">
+      <h1 class={`font-editorial text-[30px] md:text-[46px] leading-[1.1] max-w-[900px] ${titleColor}`}>
+        {tagline}
+      </h1>
+    </div>
+  </div>
+
+  <main class="pt-8 md:pt-10 pb-24">
+    <div class="max-w-[1200px] mx-auto px-4 md:px-8">
+      <!-- Full-width hero banner -->
+      {heroImg && (
+        <Image
+          src={heroImg}
+          alt={title}
+          widths={[800, 1200, 1600, 2000]}
+          sizes="(max-width: 768px) 100vw, 1200px"
+          format="webp"
+          quality={80}
+          class="w-full h-auto rounded-lg"
+        />
+      )}
+
+      <!-- Meta sidebar + lead -->
+      <div class="mt-10 md:mt-14 md:flex">
+        <CaseStudyMeta meta={meta} tags={tags} />
+        <div class="md:w-[700px] md:ml-auto">
+          {lead && <p class="case-study-lead">{lead}</p>}
+        </div>
+      </div>
+
+      <!-- Gallery body: full-width figures + grouped narrative -->
+      <div class="case-study-gallery">
+        <slot />
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style is:global>
+  .case-study-gallery {
+    font-family: var(--font-geist);
+    color: var(--color-text);
+  }
+  /* 32px between the full-width image blocks */
+  .case-study-gallery figure {
+    margin-top: 32px;
+    margin-bottom: 32px;
+  }
+  /* Grouped narrative: 740px, right edge aligned with the full-width images */
+  .case-study-gallery .cs-narrative {
+    max-width: 700px;
+    margin-top: 3.5rem;
+    margin-bottom: 4rem;
+    margin-left: auto;
+    margin-right: 0;
+  }
+  .case-study-gallery .cs-narrative > :first-child { margin-top: 0; }
+  .case-study-gallery .cs-narrative h2 {
+    font-family: var(--font-editorial);
+    font-size: 26px;
+    line-height: 1.2;
+    margin-top: 2.75rem;
+    margin-bottom: 1rem;
+  }
+  .case-study-gallery .cs-narrative p {
+    font-size: 15px;
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
+  }
+  @media (min-width: 768px) {
+    .case-study-gallery .cs-narrative h2 { font-size: 28px; }
+  }
+</style>

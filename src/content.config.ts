@@ -16,6 +16,8 @@ const work = defineCollection({
     })),
     lead: z.string(),                        // intro paragraph beside the sidebar
     draft: z.boolean().default(false),
+    template: z.enum(['default', 'gallery']).default('default'), // layout variant
+    hero: z.string().optional(),             // gallery: banner image path under case-studies/
   }),
 });
 

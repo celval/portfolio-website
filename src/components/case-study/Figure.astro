@@ -9,17 +9,19 @@ interface Props {
   frame?: boolean;
   /** For very wide diagrams: keep native width and scroll horizontally on small screens. */
   scroll?: boolean;
+  /** Full-bleed within the content column (gallery layout) instead of the 710px article width. */
+  full?: boolean;
 }
-const { src, alt = '', caption, frame = false, scroll = false } = Astro.props;
+const { src, alt = '', caption, frame = false, scroll = false, full = false } = Astro.props;
 ---
 
-<figure class="my-10 md:my-14">
+<figure class="my-6 md:my-10">
   <div class={`${frame ? 'rounded-lg bg-[#f4f4f2] p-4 md:p-8' : ''} ${scroll ? 'overflow-x-auto' : ''}`}>
     <Image
       src={src}
       alt={alt}
-      widths={[480, 800, 1200, 1600]}
-      sizes={scroll ? '900px' : '(max-width: 768px) 100vw, 710px'}
+      widths={full ? [1136, 1600, 2000, 2400] : [480, 800, 1200, 1600]}
+      sizes={scroll ? '900px' : full ? '(max-width: 768px) 100vw, 1200px' : '(max-width: 768px) 100vw, 710px'}
       format="webp"
       quality={80}
       loading="lazy"

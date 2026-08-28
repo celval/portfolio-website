@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
+import CaseStudyGallery from '../../layouts/CaseStudyGallery.astro';
 
 export async function getStaticPaths() {
   const entries = await getCollection('work', ({ data }) => !data.draft);
@@ -12,8 +13,9 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await render(entry);
+const Wrapper = entry.data.template === 'gallery' ? CaseStudyGallery : CaseStudyLayout;
 ---
 
-<CaseStudyLayout {...entry.data}>
+<Wrapper {...entry.data}>
   <Content />
-</CaseStudyLayout>
+</Wrapper>
