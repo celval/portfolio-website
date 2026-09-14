@@ -45,7 +45,7 @@ export const projects: Project[] = [
     title: "Delli",
     description: "Redesigning the shopping experience for an online deli",
     tags: ["Product", "E-commerce", "Brand integration"],
-    thumbnail: "/images/projects/delli-thumbnail.png",
+    thumbnail: "/images/projects/delli-thumbnail.jpg",
     images: [
       "/images/projects/delli-1.jpg",
       "/images/projects/delli-2.jpg",
