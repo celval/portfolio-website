@@ -61,7 +61,7 @@ export const projects: Project[] = [
     title: "Allergan Aesthetics",
     description: "Redesigning a learning platform for aesthetic medicine",
     tags: ["Product", "Brand identity"],
-    thumbnail: "/images/projects/AMI_Thumbnail.jpg",
+    thumbnail: "/images/projects/allergan-thumbnail.png",
     images: [
       "/images/projects/allergan-1.jpg",
       "/images/projects/allergan-2.jpg",
