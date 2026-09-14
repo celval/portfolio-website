@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import Layout from './Layout.astro';
 import HeaderClient from '../components/HeaderClient';
 import Footer from '../components/Footer.astro';
@@ -14,10 +15,20 @@ interface Props {
   tags: string[];
   meta: MetaItem[];
   lead: string;
+  hero?: string;
 }
 
-const { title, tagline, accent, navVariant, tags, meta, lead } = Astro.props;
+const { title, tagline, accent, navVariant, tags, meta, lead, hero } = Astro.props;
 const titleColor = navVariant === 'light' ? 'text-white' : 'text-text';
+
+// Optional intro banner, resolved from its case-studies-relative path
+const caseStudyImages = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/assets/images/case-studies/**/*.{png,jpg,jpeg}',
+  { eager: true }
+);
+const heroImg = hero
+  ? caseStudyImages[`/src/assets/images/case-studies/${hero}`]?.default
+  : undefined;
 ---
 
 <Layout title={`${title} — Célia Valette`}>
@@ -37,13 +48,27 @@ const titleColor = navVariant === 'light' ? 'text-white' : 'text-text';
   </div>
 
   <main class="pt-12 md:pt-16 pb-24">
-    <div class="max-w-[1040px] mx-auto px-4 md:px-8 md:flex md:gap-[72px]">
-      <CaseStudyMeta meta={meta} tags={tags} />
+    <div class="max-w-[1040px] mx-auto px-4 md:px-8">
+      {heroImg && (
+        <Image
+          src={heroImg}
+          alt={title}
+          widths={[800, 1040, 1600, 2000]}
+          sizes="(max-width: 768px) 100vw, 1040px"
+          format="webp"
+          quality={85}
+          class="w-full h-auto rounded-lg mb-10 md:mb-14"
+        />
+      )}
 
-      <article class="case-study-prose flex-1 md:max-w-[710px]">
-        {lead && <p class="case-study-lead">{lead}</p>}
-        <slot />
-      </article>
+      <div class="md:flex md:gap-[72px]">
+        <CaseStudyMeta meta={meta} tags={tags} />
+
+        <article class="case-study-prose flex-1 md:max-w-[710px]">
+          {lead && <p class="case-study-lead">{lead}</p>}
+          <slot />
+        </article>
+      </div>
     </div>
   </main>
 
