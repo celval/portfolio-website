@@ -17,6 +17,49 @@ import logoAllergan from '../assets/images/logos/allergan-aesthetics.svg';
 import logoGocardless from '../assets/images/logos/gocardless.png';
 import logoGoshc from '../assets/images/logos/goshc.svg';
 
+import avatarEnnismore from '../assets/images/logos/ennismore.png';
+import avatarBttr from '../assets/images/logos/bttr.png';
+import avatarWimbledon from '../assets/images/logos/wimbledon.png';
+import avatarBeyond from '../assets/images/logos/this-is-beyond.png';
+
+const testimonials = [
+  {
+    quote:
+      "Working with Célia was a fantastic experience. Célia consistently delivered designs that perfectly aligned with the brief, showcasing her creativity and attention to detail. Célia also has great time management skills and was able to create 7 website designs within an 8-week timeframe, demonstrating her ability to deliver high quality work under pressure.",
+    name: 'Mia M.',
+    role: 'Product Owner at Ennismore',
+    logo: avatarEnnismore,
+  },
+  {
+    quote:
+      "We've worked with Célia multiple times over the years and she consistently delivers high-quality work, playing an important role in developing our digital design approach across retail communications and the Championships. She helped modernise our email design process and supported our move into Figma, resulting in more cohesive and efficient output. Creative, organised, and proactive — I'd highly recommend her to any team.",
+    name: 'Fenella R.',
+    role: 'Senior Designer at Wimbledon',
+    logo: avatarWimbledon,
+  },
+  {
+    quote:
+      "Célia has a good eye for design and excellent ability to capture the essence and personality of each brand quickly. She was able to turn problems into design solutions with a positive attitude — it was an absolute delight to work with her.",
+    name: 'Meiji I.',
+    role: 'Lead Product Designer at Ennismore',
+    logo: avatarEnnismore,
+  },
+  {
+    quote:
+      "I had the pleasure of working with Célia to create a website template that brought all of our existing sites under one UX journey and design. She immediately understood the brief, was thorough, and extremely easy to work with. The final results exceeded my expectations given the quick turnaround. I'd easily recommend her to anyone looking for a UX/Web designer.",
+    name: 'John S.',
+    role: 'Lead Developer at This is Beyond',
+    logo: avatarBeyond,
+  },
+  {
+    quote:
+      "Celia joined our fast growing team at an early stage, with a focus on Product Design she proved capable working on complex global projects, navigating multiple stakeholders, a large internal team and a heavily distributed dev team.",
+    name: 'Chris J.',
+    role: 'Partner at Bttr',
+    logo: avatarBttr,
+  },
+];
+
 const clients = [
   { name: 'Ennismore', logo: logoEnnismore, maxH: 31 },
   { name: 'Wimbledon', logo: logoWimbledon, maxH: 52 },
@@ -51,7 +94,7 @@ const caseStudySlugs = new Set(work.map((entry) => entry.id));
     </section>
 
     <!-- Selected clients -->
-    <section class="pb-24 md:pb-32">
+    <section class="pb-24 md:pb-32 hidden">
       <h2 class="font-editorial text-[24px] md:text-[28px] mb-6 md:mb-8 px-4 md:px-8">
         Previously worked with
       </h2>
@@ -75,6 +118,44 @@ const caseStudySlugs = new Set(work.map((entry) => entry.id));
         </ul>
       </div>
     </section>
+
+    <!-- Testimonials -->
+    <section class="pb-24 md:pb-32">
+      <h2 class="font-editorial text-[24px] md:text-[28px] mb-12 md:mb-16 px-4 md:px-8">
+        Testimonials
+      </h2>
+      <div class="quote-marquee relative overflow-hidden">
+        <ul class="quote-track flex w-max items-stretch">
+          {Array.from({ length: 4 }, () => testimonials).flat().map((t, i) => (
+            <li
+              aria-hidden={i >= testimonials.length ? 'true' : undefined}
+              class="flex flex-col w-[320px] md:w-[400px] shrink-0 mr-4 rounded-md bg-[#f4f4f2] p-6 md:p-8"
+            >
+              <p class="font-geist text-[16px] leading-[1.6] mb-5">
+                {t.quote}
+              </p>
+              <footer class="flex items-center gap-3 mt-auto">
+                <img
+                  src={t.logo.src}
+                  alt={i >= testimonials.length ? '' : `${t.name} company logo`}
+                  loading="lazy"
+                  decoding="async"
+                  class="w-10 h-10 rounded-full object-cover shrink-0"
+                />
+                <div class="flex flex-col gap-0.5">
+                  <span class="font-geist font-medium text-[14px] leading-none">
+                    {t.name}
+                  </span>
+                  <span class="font-geist text-[14px] leading-none text-text-light">
+                    {t.role}
+                  </span>
+                </div>
+              </footer>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
   </main>
 
   <Footer />
@@ -91,7 +172,18 @@ const caseStudySlugs = new Set(work.map((entry) => entry.id));
     from { transform: translateX(0); }
     to { transform: translateX(-50%); }
   }
+  .quote-track {
+    animation: quote-scroll 120s linear infinite;
+  }
+  .quote-marquee:hover .quote-track {
+    animation-play-state: paused;
+  }
+  @keyframes quote-scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
   @media (prefers-reduced-motion: reduce) {
-    .logo-track { animation: none; }
+    .logo-track,
+    .quote-track { animation: none; }
   }
 </style>

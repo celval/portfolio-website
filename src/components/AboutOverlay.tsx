@@ -1,10 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 
-import logoEnnismore from "../assets/images/logos/ennismore.png";
-import logoBttr from "../assets/images/logos/bttr.png";
-import logoWimbledon from "../assets/images/logos/wimbledon.png";
-
 const services = [
   "Product Design",
   "Visual Design",
@@ -19,37 +15,6 @@ const services = [
   "Mixpanel",
   "Framer",
   "Shopify",
-];
-
-const testimonials = [
-  {
-    quote:
-      "Working with Célia was a fantastic experience. Célia consistently delivered designs that perfectly aligned with the brief, showcasing her creativity and attention to detail. Célia also has great time management skills and was able to create 7 website designs within an 8-week timeframe, demonstrating her ability to deliver high quality work under pressure.",
-    name: "Mia M.",
-    role: "Product Owner at Ennismore",
-    logo: logoEnnismore,
-  },
-  {
-    quote:
-      "Celia joined our fast growing team at an early stage, with a focus on Product Design she proved capable working on complex global projects, navigating multiple stakeholders, a large internal team and a heavily distributed dev team.",
-    name: "Chris J.",
-    role: "Partner at Bttr",
-    logo: logoBttr,
-  },
-  {
-    quote:
-      "Célia has a good eye for design and excellent ability to capture the essence and personality of each brand quickly. She was able to turn problems into design solutions with a positive attitude — it was an absolute delight to work with her.",
-    name: "Meiji I.",
-    role: "Lead Product Designer at Ennismore",
-    logo: logoEnnismore,
-  },
-  {
-    quote:
-      "We've worked with Célia multiple times over the years and she consistently delivers high-quality work, playing an important role in developing our digital design approach across retail communications and the Championships. She helped modernise our email design process and supported our move into Figma, resulting in more cohesive and efficient output. Creative, organised, and proactive — I'd highly recommend her to any team.",
-    name: "Fenella R.",
-    role: "Senior Designer at Wimbledon",
-    logo: logoWimbledon,
-  },
 ];
 
 interface Props {
@@ -164,7 +129,7 @@ export default function AboutOverlay({ isOpen, onClose }: Props) {
               </section>
 
               {/* Services */}
-              <section className="py-8 border-b border-gray-200">
+              <section className="pt-8">
                 <h2 className="font-editorial text-[28px] leading-[1.2] mb-8 md:mb-5">
                   Services
                 </h2>
@@ -176,44 +141,6 @@ export default function AboutOverlay({ isOpen, onClose }: Props) {
                     >
                       {service}
                     </span>
-                  ))}
-                </div>
-              </section>
-
-              {/* Testimonials */}
-              <section className="pt-8">
-                <h2 className="font-editorial text-[28px] leading-[1.2] mb-8 md:mb-5">
-                  Testimonials
-                </h2>
-                <div className="flex flex-col md:flex-row gap-12">
-                  {[[0, 2], [1, 3]].map((col, ci) => (
-                    <div key={ci} className="flex-1 flex flex-col gap-12">
-                      {col.map((idx) => {
-                        const t = testimonials[idx];
-                        return (
-                          <blockquote key={idx}>
-                            <p className="text-base md:text-[15px] leading-[24px] mb-4 whitespace-pre-line">
-                              {t.quote}
-                            </p>
-                            <footer className="flex items-center gap-3">
-                              <img
-                                src={t.logo.src}
-                                alt={`${t.name} company logo`}
-                                className="w-10 h-10 rounded-full object-cover shrink-0"
-                              />
-                              <div className="flex flex-col gap-0.5 md:gap-1">
-                                <span className="font-medium text-[14px] leading-none text-[var(--color-text)]">
-                                  {t.name}
-                                </span>
-                                <span className="text-[14px] leading-none text-[var(--color-text-light)]">
-                                  {t.role}
-                                </span>
-                              </div>
-                            </footer>
-                          </blockquote>
-                        );
-                      })}
-                    </div>
                   ))}
                 </div>
               </section>
